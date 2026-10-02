@@ -1,0 +1,2 @@
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b)[a,b]=[b,a%b];return a}
+export function mount(el){el.innerHTML=`<div class="tool-form"><label>First number <input id="a" type="number" value="84"></label><label>Second number <input id="b" type="number" value="30"></label><button class="primary" id="go">Calculate</button><output id="out"></output></div>`;const q=s=>el.querySelector(s);q("#go").onclick=()=>{const a=+q("#a").value,b=+q("#b").value,g=gcd(a,b),l=g?Math.abs(a*b)/g:0;q("#out").textContent=`GCD: ${g} · LCM: ${l}`};}

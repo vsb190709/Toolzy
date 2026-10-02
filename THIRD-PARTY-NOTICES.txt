@@ -1,0 +1,3 @@
+Toolzy bundles Google Material Symbols Rounded as a local WOFF2 font.
+Material Symbols are provided by Google under the Apache License 2.0.
+See the bundled font source: assets/fonts/MaterialSymbolsRounded.woff2

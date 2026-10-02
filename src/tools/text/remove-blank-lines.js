@@ -1,0 +1,1 @@
+export function mount(el){el.innerHTML=`<div class="tool-form"><textarea id="input" placeholder="Paste text…"></textarea><button class="primary" id="go">Remove blank lines</button><textarea id="out" readonly></textarea></div>`;go.onclick=()=>out.value=input.value.split(/\r?\n/).filter(s=>s.trim()).join('\n')}

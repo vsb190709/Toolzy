@@ -1,0 +1,4 @@
+export function mount(el){
+ el.innerHTML=`<div class="tool-form"><label>Bill amount <input id="bill" type="number" min="0" value="1000"></label><label>Tip % <input id="tip" type="number" min="0" value="10"></label><label>People <input id="people" type="number" min="1" step="1" value="1"></label><button class="primary" id="go">Calculate</button><output id="out"></output></div>`;
+ const out=el.querySelector('#out');el.querySelector('#go').onclick=()=>{const b=+bill.value,t=+tip.value,n=Math.max(1,Math.floor(+people.value));if(b<0||t<0)return out.textContent='Enter valid values.';const tipAmt=b*t/100;out.textContent=`Tip: ${tipAmt.toFixed(2)}\nTotal: ${(b+tipAmt).toFixed(2)}\nPer person: ${((b+tipAmt)/n).toFixed(2)}`};
+}

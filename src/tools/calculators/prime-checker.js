@@ -1,0 +1,2 @@
+function prime(n){if(n<2||!Number.isInteger(n))return false;for(let i=2;i*i<=n;i++)if(n%i===0)return false;return true}
+export function mount(el){el.innerHTML=`<div class="tool-form"><label>Number <input id="n" type="number" value="97"></label><button class="primary" id="go">Check</button><output id="out"></output></div>`;const q=s=>el.querySelector(s);q("#go").onclick=()=>{const n=+q("#n").value;q("#out").textContent=prime(n)?`${n} is prime.`:`${n} is not prime.`};}

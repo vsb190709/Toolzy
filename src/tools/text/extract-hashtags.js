@@ -1,0 +1,1 @@
+export function mount(el){el.innerHTML=`<div class="tool-form"><textarea id="input" placeholder="Paste social text…"></textarea><button class="primary" id="go">Extract hashtags</button><textarea id="out" readonly></textarea></div>`;go.onclick=()=>{const found=input.value.match(/#[\p{L}\p{N}_-]+/gu)||[];out.value=[...new Set(found)].join('\n')}}

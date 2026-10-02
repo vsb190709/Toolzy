@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vsb190709.github.io/toolzy/sitemap.xml

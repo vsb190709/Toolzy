@@ -1,0 +1,4 @@
+export function mount(el){
+ el.innerHTML=`<div class="tool-form"><label>Numbers <textarea id="nums" placeholder="10, 20, 30\nor one number per line"></textarea></label><button class="primary" id="go">Calculate average</button><output id="out"></output></div>`;
+ const out=el.querySelector('#out');el.querySelector('#go').onclick=()=>{const vals=nums.value.split(/[\s,;]+/).filter(Boolean).map(Number);if(!vals.length||vals.some(Number.isNaN))return out.textContent='Enter only numbers.';const sum=vals.reduce((a,b)=>a+b,0);out.textContent=`Count: ${vals.length}\nSum: ${sum}\nAverage: ${sum/vals.length}`};
+}

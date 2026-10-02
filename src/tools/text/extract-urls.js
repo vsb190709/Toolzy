@@ -1,0 +1,1 @@
+export function mount(el){el.innerHTML=`<div class="tool-form"><textarea id="input" placeholder="Paste text containing URLs…"></textarea><button class="primary" id="go">Extract URLs</button><textarea id="out" readonly></textarea></div>`;go.onclick=()=>{const found=input.value.match(/https?:\/\/[^\s<>"']+/gi)||[];out.value=[...new Set(found)].join('\n')}}

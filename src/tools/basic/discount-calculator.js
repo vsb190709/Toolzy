@@ -1,0 +1,4 @@
+export function mount(el){
+ el.innerHTML=`<div class="tool-form"><label>Original price <input id="price" type="number" min="0" value="1000"></label><label>Discount % <input id="discount" type="number" min="0" max="100" value="20"></label><button class="primary" id="go">Calculate</button><output id="out"></output></div>`;
+ const out=el.querySelector('#out');el.querySelector('#go').onclick=()=>{const p=+el.querySelector('#price').value,d=+el.querySelector('#discount').value;if(p<0||d<0||d>100)return out.textContent='Enter valid values.';const saved=p*d/100;out.textContent=`You save: ${saved.toLocaleString()}\nFinal price: ${(p-saved).toLocaleString()}`};
+}

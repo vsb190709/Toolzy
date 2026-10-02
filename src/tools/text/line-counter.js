@@ -1,0 +1,1 @@
+export function mount(el){el.innerHTML=`<div class="tool-form"><textarea id="text" placeholder="Enter text…"></textarea><output id="out"></output></div>`;text.oninput=()=>{const s=text.value;const lines=s?s.split(/\r?\n/):[];out.textContent=`Lines: ${lines.length}\nNon-empty lines: ${lines.filter(x=>x.trim()).length}`};text.oninput()}
