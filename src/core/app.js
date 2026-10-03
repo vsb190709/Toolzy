@@ -77,12 +77,12 @@ function renderHome(){
  const state=loadState();
  const recent=state.recent.map(getTool).filter(Boolean);
  document.title="Toolzy — All-in-one toolbox";
- const heroArt = art("pixel-crown-sparkles","Toolzy toolbox");
- const categoryArt = {basic:"gear",text:"pencil",calculators:"dice",converters:"arrow-right",developer:"robot",image:"palette",pdf:"scroll",documents:"package",security:"shield-cross"};
+ const heroArt = art("build","Toolzy toolbox");
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",image:"image",pdf:"pdf",documents:"folder",security:"lock"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
-       <p class="eyebrow">TOOLZY · PIXEL TOOLBOX</p>
+       <p class="eyebrow">TOOLZY · YOUR TOOLBOX</p>
        <h1>Everything useful.<br><span>One toolbox.</span></h1>
        <p>Fast browser tools for text, numbers, files, code, images and everyday tasks — built to stay simple.</p>
        <div class="hero-actions">
@@ -90,7 +90,7 @@ function renderHome(){
          
        </div>
      </div>
-     <div class="hero-art">${heroArt}${art("sparkle-star","", "hero-sparkle")}${art("coin","", "hero-coin")}${art("gem","", "hero-gem")}</div>
+     <div class="hero-art">${heroArt}</div>
    </section>
    ${recent.length?`<section><div class="section-title"><h2>Recently used</h2></div><div class="tool-grid">${recent.map(card).join("")}</div></section>`:""}
    <section>
@@ -106,7 +106,7 @@ function renderHome(){
 
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
- document.title=`undefined Tools — Toolzy`;
+ document.title=`${c.name} Tools — Toolzy`;
 
  if(c.subcategories?.length){
    const groups=c.subcategories.map(sub=>{
@@ -177,28 +177,28 @@ function developerSubDescription(id){
 }
 async function renderTool(id){
  const t=getTool(id); if(!t)return renderNotFound();
- addRecent(id);document.title=`\${t.name} — Toolzy`;
+ addRecent(id);document.title=`${t.name} — Toolzy`;
  const cat=getCategory(t.category);
  const sub=cat.subcategories?.find(s=>s.id===t.subcategory);
  const isDeveloper=t.category==="developer";
  document.querySelector("#main").innerHTML=isDeveloper ? `
    <div class="tool-page developer-tool-page">
-     <button class="back" id="back">\${icon("arrow-left")} Back to \${cat.name}</button>
+     <button class="back" id="back">${icon("arrow-left")} Back to ${cat.name}</button>
      <header class="developer-tool-header">
-       <div class="developer-tool-icon">\${icon(t.icon)}</div>
+       <div class="developer-tool-icon">${icon(t.icon)}</div>
        <div class="developer-tool-copy">
-         <div class="developer-breadcrumb"><span>Developer</span><span aria-hidden="true">›</span><span>\${sub?.name||"Tool"}</span></div>
-         <h1>\${escapeHtml(t.name)}</h1>
-         <p>\${escapeHtml(t.description)}</p>
+         <div class="developer-breadcrumb"><span>Developer</span><span aria-hidden="true">›</span><span>${sub?.name||"Tool"}</span></div>
+         <h1>${escapeHtml(t.name)}</h1>
+         <p>${escapeHtml(t.description)}</p>
        </div>
      </header>
      <div id="tool-mount" class="tool-mount">Loading tool…</div>
    </div>` : `
    <div class="tool-page">
-     <button class="back" id="back">\${icon("arrow-left")} Back</button>
-     <p class="eyebrow">\${icon(cat.icon)} \${cat.name}\${t.subcategory?` · \${sub?.name||""}`:""}</p>
-     <h1>\${icon(t.icon)} \${escapeHtml(t.name)}</h1>
-     <p>\${escapeHtml(t.description)}</p>
+     <button class="back" id="back">${icon("arrow-left")} Back</button>
+     <p class="eyebrow">${icon(cat.icon)} ${cat.name}${t.subcategory?` · ${sub?.name||""}`:""}</p>
+     <h1>${icon(t.icon)} ${escapeHtml(t.name)}</h1>
+     <p>${escapeHtml(t.description)}</p>
      <div id="tool-mount" class="tool-mount">Loading tool…</div>
    </div>`;
  document.querySelector("#back").onclick=()=>navigate("/"+t.category);
@@ -208,7 +208,7 @@ async function renderTool(id){
    await mod.mount(document.querySelector("#tool-mount"), t);
  }catch(error){
    console.error("Tool load error:", error);
-   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>\${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
+   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
    document.querySelector("#retry-tool").onclick=()=>renderTool(id);
  }
 }
