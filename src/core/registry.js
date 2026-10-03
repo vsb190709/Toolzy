@@ -122,6 +122,7 @@ export const tools = [
   {id:"url-safety", category:"security", subcategory:"inspection", name:"URL Safety Inspector", icon:"link", description:"Inspect obvious URL properties before opening a link.", module:"../tools/security/url-safety.js"},
   {id:"password-pattern", category:"security", subcategory:"inspection", name:"Password Pattern Helper", icon:"pattern", description:"Check a password against a local strength checklist.", module:"../tools/security/password-pattern.js"},
   {id:"security-checklist", category:"security", subcategory:"habits", name:"Security Checklist", icon:"checklist", description:"Track a quick set of everyday security habits.", module:"../tools/security/security-checklist.js"},
+  {id:"file-opener", category:"documents", name:"File Opener", icon:"folder_open", description:"Open, preview or inspect any local file.", module:"../tools/documents/file-opener.js"},
   {id:"percentage", category:"basic", name:"Percentage Calculator", icon:"percent", description:"Calculate percentages quickly.", module:"../tools/basic/percentage.js"},
   {id:"age-calculator", category:"basic", name:"Age Calculator", icon:"calendar", description:"Calculate age from a birth date.", module:"../tools/basic/age-calculator.js"},
   {id:"discount-calculator", category:"basic", name:"Discount Calculator", icon:"percent", description:"Calculate savings and final price.", module:"../tools/basic/discount-calculator.js"},
