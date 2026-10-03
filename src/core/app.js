@@ -1,4 +1,4 @@
-import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js";
+import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=21";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 import { icon, art } from "./icons.js";
