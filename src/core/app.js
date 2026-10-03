@@ -45,6 +45,12 @@ export function renderApp(){
 }
 
 function card(t){
+ return `<button class="tool-card" data-tool="${t.id}">
+   <div class="tool-icon">${icon(t.icon, t.name)}</div><div><h3>${t.name}</h3><p>${t.description}</p></div>
+ </button>`;
+}
+
+function developerCard(t){
  return `<button class="tool-card" data-tool="${t.id}" aria-label="${escapeHtml(t.name)}">
    <span class="tool-icon">${icon(t.icon)}</span>
    <span class="tool-card-copy">
@@ -124,7 +130,7 @@ function renderCategory(id){
          </div>
          <span class="tool-count"><strong>${items.length}</strong> tools</span>
        </div>
-       <div class="tool-grid developer-tool-grid">${items.map(card).join("")}</div>
+       <div class="tool-grid developer-tool-grid">${items.map(developerCard).join("")}</div>
      </section>`;
    }).join("");
 
