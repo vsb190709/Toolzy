@@ -318,9 +318,9 @@ function renderCredits(){
  document.querySelector("#main").innerHTML=`
    <div class="page-head"><p class="eyebrow">${icon("star")} Open source</p><h1>Credits</h1><p>Toolzy is built with open-source resources and a modular browser-first architecture.</p></div>
    <div class="credits-grid">
-     <section class="credit-card"><div class="credit-art">${art("robot","PxlKit")}</div><div><h2>PxlKit</h2><p>Colorful pixel artwork used throughout Toolzy's categories and interface.</p><a href="https://pxlkit.xyz" target="_blank" rel="noreferrer">pxlkit.xyz ↗</a></div></section>
-     <section class="credit-card"><div class="credit-art">${art("pixel-crown-sparkles","HackerNoon")}</div><div><h2>HackerNoon Pixel Icons</h2><p>Pixel icon resources used as part of Toolzy's visual system.</p><a href="https://github.com/hackernoon/pixel-icon-library" target="_blank" rel="noreferrer">Pixel Icon Library ↗</a></div></section>
-     <section class="credit-card"><div class="credit-art">${art("pencil","HackerNoon")}</div><div><h2>HackerNoon Font</h2><p>HackerNoon pixel typography is bundled locally for the Toolzy interface.</p><a href="https://brand.hackernoon.com/" target="_blank" rel="noreferrer">HackerNoon brand resources ↗</a></div></section>
+     <section class="credit-card"><div class="credit-art">${art("robot","PxlKit")}</div><div><h2>PxlKit</h2><p>Colorful pixel artwork used throughout Toolzy's categories and interface.</p><a href="https://pxlkit.xyz" target="_blank" rel="noreferrer">pxlkit.xyz ${icon("arrow")}</a></div></section>
+     <section class="credit-card"><div class="credit-art">${art("pixel-crown-sparkles","HackerNoon")}</div><div><h2>HackerNoon Pixel Icons</h2><p>Pixel icon resources used as part of Toolzy's visual system.</p><a href="https://github.com/hackernoon/pixel-icon-library" target="_blank" rel="noreferrer">Pixel Icon Library ${icon("arrow")}</a></div></section>
+     <section class="credit-card"><div class="credit-art">${art("pencil","HackerNoon")}</div><div><h2>HackerNoon Font</h2><p>HackerNoon pixel typography is bundled locally for the Toolzy interface.</p><a href="https://brand.hackernoon.com/" target="_blank" rel="noreferrer">HackerNoon brand resources ${icon("arrow")}</a></div></section>
    </div>
    <div class="credits-note"><strong>Third-party resources</strong><p>Toolzy keeps attribution on this dedicated page while following the applicable licenses for bundled assets.</p></div>`;
 }
