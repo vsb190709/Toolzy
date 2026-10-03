@@ -177,9 +177,30 @@ function developerSubDescription(id){
 }
 async function renderTool(id){
  const t=getTool(id); if(!t)return renderNotFound();
- addRecent(id);document.title=`${t.name} — Toolzy`;
+ addRecent(id);document.title=`\${t.name} — Toolzy`;
  const cat=getCategory(t.category);
- document.querySelector("#main").innerHTML=`<div class="tool-page"><button class="back" id="back">${icon("arrow-left")} Back</button><p class="eyebrow">${icon(cat.icon)} ${cat.name}${t.subcategory?` · ${cat.subcategories?.find(s=>s.id===t.subcategory)?.name||""}`:""}</p><h1>${icon(t.icon)} ${t.name}</h1><p>${t.description}</p><div id="tool-mount" class="tool-mount">Loading tool…</div></div>`;
+ const sub=cat.subcategories?.find(s=>s.id===t.subcategory);
+ const isDeveloper=t.category==="developer";
+ document.querySelector("#main").innerHTML=isDeveloper ? `
+   <div class="tool-page developer-tool-page">
+     <button class="back" id="back">\${icon("arrow-left")} Back to \${cat.name}</button>
+     <header class="developer-tool-header">
+       <div class="developer-tool-icon">\${icon(t.icon)}</div>
+       <div class="developer-tool-copy">
+         <div class="developer-breadcrumb"><span>Developer</span><span aria-hidden="true">›</span><span>\${sub?.name||"Tool"}</span></div>
+         <h1>\${escapeHtml(t.name)}</h1>
+         <p>\${escapeHtml(t.description)}</p>
+       </div>
+     </header>
+     <div id="tool-mount" class="tool-mount">Loading tool…</div>
+   </div>` : `
+   <div class="tool-page">
+     <button class="back" id="back">\${icon("arrow-left")} Back</button>
+     <p class="eyebrow">\${icon(cat.icon)} \${cat.name}\${t.subcategory?` · \${sub?.name||""}`:""}</p>
+     <h1>\${icon(t.icon)} \${escapeHtml(t.name)}</h1>
+     <p>\${escapeHtml(t.description)}</p>
+     <div id="tool-mount" class="tool-mount">Loading tool…</div>
+   </div>`;
  document.querySelector("#back").onclick=()=>navigate("/"+t.category);
  try{
    const mod=await import(t.module);
@@ -187,7 +208,7 @@ async function renderTool(id){
    await mod.mount(document.querySelector("#tool-mount"), t);
  }catch(error){
    console.error("Tool load error:", error);
-   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
+   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>\${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
    document.querySelector("#retry-tool").onclick=()=>renderTool(id);
  }
 }
