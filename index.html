@@ -3,26 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script>
-  window.TOOLZY_BASE = (location.pathname === "/toolzy" || location.pathname.startsWith("/toolzy/")) ? "/toolzy/" : "/";
-</script>
-<link rel="manifest" href="/manifest.webmanifest" id="manifest-link">
-<link rel="icon" href="/assets/icons/icon.svg" id="icon-link">
-<link rel="stylesheet" href="/src/styles/main.css?v=24" id="style-link">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/icons/icon.svg">
+<link rel="stylesheet" href="./src/styles/main.css?v=25">
 <meta name="theme-color" content="#6750A4">
 <meta name="description" content="Toolzy — a fast, modular all-in-one toolbox.">
 <title>Toolzy</title>
-<script>
-  document.getElementById("manifest-link").href = window.TOOLZY_BASE + "manifest.webmanifest";
-  document.getElementById("icon-link").href = window.TOOLZY_BASE + "assets/icons/icon.svg";
-  document.getElementById("style-link").href = window.TOOLZY_BASE + "src/styles/main.css?v=24";
-</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div id="app"></div>
-<script type="module">
-  import(window.TOOLZY_BASE + "src/app.js?v=24");
-</script>
+<script type="module" src="./src/app.js?v=25"></script>
 </body>
 </html>
