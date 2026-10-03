@@ -19,12 +19,15 @@ const copy = async (text) => {
 const shell = (title, desc, body) => `
   <section class="dev-tool">
     <div class="dev-panel">
-      <div class="dev-heading">
-        <div class="dev-kicker">Developer tool</div>
-        <h2>${esc(title)}</h2>
-        <p>${esc(desc)}</p>
-      </div>
-      ${body}
+      <header class="dev-heading">
+        <div class="dev-heading-icon" aria-hidden="true"><span class="material-symbols-rounded">code</span></div>
+        <div class="dev-heading-copy">
+          <div class="dev-kicker">Developer tool</div>
+          <h2>${esc(title)}</h2>
+          <p>${esc(desc)}</p>
+        </div>
+      </header>
+      <div class="dev-content">${body}</div>
     </div>
   </section>`;
 
@@ -70,21 +73,46 @@ const style = () => {
   const s = document.createElement("style");
   s.id = "toolzy-developer-ui";
   s.textContent = `
-    .dev-tool{display:grid;gap:16px}
-    .dev-panel{background:var(--surface,#fff);border:1px solid var(--border,#ddd);border-radius:24px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-    .dev-heading{margin-bottom:18px}.dev-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.65}
-    .dev-heading h2{margin:4px 0 4px;font-size:clamp(24px,4vw,34px)}.dev-heading p{margin:0;opacity:.72}
-    .dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.dev-field{display:grid;gap:8px;font-weight:700;font-size:13px}
-    .dev-field>span{opacity:.75}.dev-field textarea,.dev-input,.dev-select{width:100%;box-sizing:border-box;border:1px solid var(--border,#ddd);border-radius:16px;padding:13px 14px;background:var(--surface-container,#f7f7f7);color:inherit;outline:none;font:inherit}
-    .dev-field textarea{min-height:280px;resize:vertical;font:500 14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
-    .dev-field textarea:focus,.dev-input:focus,.dev-select:focus{border-color:var(--primary,#6750a4);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary,#6750a4) 16%,transparent)}
-    .dev-output{min-height:250px;margin:0;white-space:pre-wrap;overflow:auto;border:1px solid var(--border,#ddd);border-radius:16px;padding:13px 14px;background:var(--surface-container,#f7f7f7);font:500 14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
-    .dev-output.is-error{border-color:#c84b4b}.dev-output.is-ok{border-color:#4b9a68}
-    .dev-actions,.dev-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}.dev-row>*{flex:1 1 180px}
-    .dev-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px}
-    .dev-card{padding:14px;border:1px solid var(--border,#ddd);border-radius:16px;background:var(--surface-container,#f7f7f7)}
-    .dev-card strong{display:block;margin-bottom:5px}.dev-muted{opacity:.7}.dev-preview{min-height:280px;padding:18px;border:1px solid var(--border,#ddd);border-radius:16px;overflow:auto;background:var(--surface,#fff)}
-    @media(max-width:760px){.dev-grid{grid-template-columns:1fr}.dev-panel{padding:15px;border-radius:20px}}
+    .dev-tool{display:grid;gap:18px}
+    .dev-panel{overflow:hidden;background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:28px;box-shadow:var(--shadow-1)}
+    .dev-heading{display:flex;align-items:center;gap:15px;padding:22px 24px 18px;border-bottom:1px solid var(--outline-variant);background:var(--surface-1)}
+    .dev-heading-icon{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:15px;background:var(--primary-container);color:var(--on-primary-container)}
+    .dev-heading-icon .material-symbols-rounded{font-size:24px}
+    .dev-heading-copy{min-width:0}
+    .dev-kicker{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
+    .dev-heading h2{margin:3px 0 4px;font-size:clamp(22px,3vw,30px);line-height:1.2}
+    .dev-heading p{margin:0;color:var(--on-surface-variant);font-size:14px}
+    .dev-content{padding:24px}
+    .dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .dev-field{display:grid;gap:8px;font-weight:700;font-size:13px}
+    .dev-field>span{color:var(--on-surface-variant);font-size:12px;font-weight:800}
+    .dev-field textarea,.dev-input,.dev-select{width:100%;box-sizing:border-box;border:1px solid var(--outline);border-radius:16px;padding:13px 14px;background:var(--surface);color:var(--on-surface);outline:none;font:inherit;transition:border-color .16s,box-shadow .16s,background .16s}
+    .dev-field textarea{min-height:290px;resize:vertical;font:500 14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .dev-field textarea:hover,.dev-input:hover,.dev-select:hover{background:var(--surface-2)}
+    .dev-field textarea:focus,.dev-input:focus,.dev-select:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 14%,transparent);background:var(--surface)}
+    .dev-output{min-height:260px;margin:0;white-space:pre-wrap;overflow:auto;border:1px solid var(--outline);border-radius:16px;padding:13px 14px;background:var(--surface);color:var(--on-surface);font:500 14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .dev-output:empty::before{content:"Your result will appear here";color:var(--on-surface-variant);opacity:.7}
+    .dev-output.is-error{border-color:var(--error);background:var(--error-container);color:var(--on-error-container)}
+    .dev-actions,.dev-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+    .dev-actions .primary,.dev-actions .secondary{min-height:44px}
+    .dev-row>*{flex:1 1 180px}
+    .dev-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}
+    .dev-card{padding:16px;border:1px solid var(--outline-variant);border-radius:18px;background:var(--surface-1)}
+    .dev-card strong{display:block;margin-bottom:6px;color:var(--on-surface)}
+    .dev-card span{color:var(--on-surface-variant);overflow-wrap:anywhere}
+    .dev-muted{color:var(--on-surface-variant)}
+    .dev-preview{min-height:280px;padding:18px;border:1px solid var(--outline);border-radius:18px;overflow:auto;background:var(--surface)}
+    @media(max-width:760px){
+      .dev-panel{border-radius:22px}
+      .dev-heading{padding:18px 18px 16px}
+      .dev-heading-icon{width:44px;height:44px;border-radius:14px}
+      .dev-heading-icon .material-symbols-rounded{font-size:22px}
+      .dev-content{padding:18px}
+      .dev-grid{grid-template-columns:1fr}
+      .dev-field textarea{min-height:220px}
+      .dev-output{min-height:210px}
+      .dev-actions>*{flex:1 1 calc(50% - 10px)}
+    }
   `;
   document.head.appendChild(s);
 };
