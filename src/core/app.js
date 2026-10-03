@@ -1,4 +1,4 @@
-import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=22";
+import { categories, tools, products, getCategory, getTool, toolsForCategory } from "./registry.js?v=23";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 import { icon, art } from "./icons.js";
@@ -84,6 +84,7 @@ export function renderRoute(r){
  if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
+ if(r.length===1 && products.some(p=>p.id===r[0]))return renderProduct(r[0]);
  if(r.length===1 && getCategory(r[0]))return renderCategory(r[0]);
  if(r.length===2 && getCategory(r[0]) && getTool(r[1]))return renderTool(r[1]);
  renderNotFound();
@@ -94,7 +95,7 @@ function renderHome(){
  const recent=state.recent.map(getTool).filter(Boolean);
  document.title="Toolzy — All-in-one toolbox";
  const heroArt = art("build","Toolzy toolbox");
- const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",image:"image",pdf:"pdf",documents:"folder",security:"lock"};
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
@@ -116,10 +117,94 @@ function renderHome(){
        <div><h3>${c.name}</h3><p>${c.description}</p><span class="category-link">Open ${icon("arrow-left")}</span></div>
      </button>`).join("")}</div>
    </section>
+   <section><div class="section-title"><h2>Toolzy products</h2><p>More than a toolbox.</p></div><div class="product-grid">${products.map(p=>`<button class="product-card product-${p.id}" data-nav="/${p.id}"><div class="product-card-icon">${icon(p.icon)}</div><div><p class="eyebrow">Toolzy product</p><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p><span class="product-link">${p.status==="planned"?"Coming next":"Open"} ${icon("arrow-left")}</span></div></button>`).join("")}</div></section>
    <section><div class="section-title"><h2>Available now</h2><p>${tools.length} tools live</p></div><div class="tool-grid">${tools.map(card).join("")}</div></section><section class="home-bottom"><button class="secondary credits-bottom" data-nav="/credits">${icon("star")} Credits & open source</button></section>`;
  bindNav();bindToolCards();
 }
 
+function renderProduct(id){
+ const product=products.find(p=>p.id===id);
+ if(!product)return renderNotFound();
+ if(id==="files")return renderUniversalFiles();
+ document.title=`${product.name} — Toolzy`;
+ document.querySelector("#main").innerHTML=`
+   <section class="product-hero">
+     <div><p class="eyebrow">Toolzy · Product</p><h1>${escapeHtml(product.name)}</h1><p>${escapeHtml(product.description)}</p></div>
+     <span class="product-status">${product.status==="planned"?"Coming next":"Available"}</span>
+   </section>
+   <section class="product-placeholder">
+     <div class="product-placeholder-icon">${icon(product.icon)}</div>
+     <h2>${product.name} is part of the Toolzy product suite.</h2>
+     <p>This workspace is planned as a dedicated full-featured application, separate from the everyday Tools collection.</p>
+   </section>`;
+}
+function renderUniversalFiles(){
+ document.title="Universal File System — Toolzy";
+ document.querySelector("#main").innerHTML=`
+   <section class="ufs-hero">
+     <div class="ufs-hero-main"><div class="ufs-hero-icon">${icon("folder_open")}</div><div>
+       <p class="eyebrow">Toolzy · Product 8</p><h1>Universal File System</h1>
+       <p>One browser workspace to open, inspect, organize and work with files across a huge range of formats.</p>
+       <div class="ufs-pills"><span>Local-first</span><span>Drag & drop</span><span>Format-aware</span></div>
+     </div></div>
+     <div class="ufs-hero-stat"><strong>2K+</strong><span>targeted formats</span></div>
+   </section>
+   <section class="ufs-workspace">
+     <div class="ufs-drop" data-ufs-drop tabindex="0" role="button">
+       <input data-ufs-input type="file" multiple hidden>
+       <div class="ufs-drop-icon">${icon("upload_file")}</div>
+       <h2>Drop files here</h2>
+       <p>Or choose files from your device. Files stay in your browser unless a future feature explicitly needs cloud storage.</p>
+       <button class="primary" data-ufs-choose>${icon("folder_open")} Choose files</button>
+     </div>
+     <div class="ufs-toolbar">
+       <label class="ufs-search">${icon("search")}<input data-ufs-search placeholder="Search loaded files…" autocomplete="off"></label>
+       <button class="secondary" data-ufs-clear>${icon("delete")} Clear all</button>
+     </div>
+     <div class="ufs-list" data-ufs-list><div class="ufs-empty">${icon("folder_open")}<strong>No files loaded</strong><span>Add one or more files to start.</span></div></div>
+   </section>
+   <p class="ufs-note">Toolzy never executes unknown file formats. Preview handlers are selected by detected MIME type and extension.</p>`;
+ const root=document.querySelector("#main"), input=root.querySelector("[data-ufs-input]"), drop=root.querySelector("[data-ufs-drop]"), list=root.querySelector("[data-ufs-list]"), search=root.querySelector("[data-ufs-search]");
+ let files=[];
+ const formatSize=n=>{const u=["B","KB","MB","GB","TB"];let i=0,x=n;while(x>=1024&&i<u.length-1){x/=1024;i++}return x.toFixed(x>=100||i===0?0:1)+" "+u[i]};
+ const ext=f=>(f.name.includes(".")?f.name.split(".").pop():"").toLowerCase();
+ const kind=f=>f.type||"application/octet-stream";
+ const iconFor=f=>kind(f).startsWith("image/")?"image":kind(f).startsWith("video/")?"movie":kind(f).startsWith("audio/")?"music_note":kind(f)==="application/pdf"?"picture_as_pdf":"insert_drive_file";
+ function render(){
+   const q=search.value.trim().toLowerCase();
+   const shown=files.filter(f=>(f.name+" "+f.type+" "+ext(f)).toLowerCase().includes(q));
+   list.innerHTML=shown.length?shown.map((f,i)=>`<article class="ufs-file" data-index="${files.indexOf(f)}">
+     <div class="ufs-file-icon">${icon(iconFor(f))}</div><div class="ufs-file-copy"><h3>${esc(f.name)}</h3><p>${esc(kind(f))} · ${esc(ext(f)||"no extension")} · ${formatSize(f.size)}</p></div>
+     <div class="ufs-file-actions"><button class="secondary" data-open-file>${icon("open_in_new")} Open</button><button class="icon-btn" data-remove-file aria-label="Remove ${esc(f.name)}">${icon("close")}</button></div>
+   </article>`).join(""):'<div class="ufs-empty">'+icon("search")+'<strong>No matching files</strong><span>Try another filename or extension.</span></div>';
+   list.querySelectorAll("[data-open-file]").forEach(b=>b.onclick=e=>openFile(files[+e.currentTarget.closest(".ufs-file").dataset.index]));
+   list.querySelectorAll("[data-remove-file]").forEach(b=>b.onclick=e=>{files.splice(+e.currentTarget.closest(".ufs-file").dataset.index,1);render()});
+ }
+ function openFile(index){
+   const f=files[index];if(!f)return;
+   const url=URL.createObjectURL(f);const k=kind(f);
+   let html="";
+   if(k.startsWith("image/"))html=`<img src="${url}" alt="${esc(f.name)}" style="max-width:100%;max-height:70vh;object-fit:contain">`;
+   else if(k.startsWith("video/"))html=`<video controls playsinline src="${url}" style="max-width:100%;max-height:70vh"></video>`;
+   else if(k.startsWith("audio/"))html=`<audio controls src="${url}" style="width:100%"></audio>`;
+   else if(k==="application/pdf")html=`<iframe src="${url}" title="PDF preview" style="width:100%;height:70vh;border:0;background:white"></iframe>`;
+   else html=`<div class="ufs-generic-preview">${icon(iconFor(f))}<h2>${esc(f.name)}</h2><p>${esc(k)} · ${formatSize(f.size)}</p><button class="primary" data-ufs-download>Download / open</button></div>`;
+   const wrap=document.createElement("div");wrap.className="ufs-modal";wrap.innerHTML=`<div class="ufs-modal-card"><div class="ufs-modal-head"><strong>${esc(f.name)}</strong><button class="icon-btn" data-ufs-close>${icon("close")}</button></div><div class="ufs-modal-body">${html}</div></div>`;root.appendChild(wrap);
+   wrap.querySelector("[data-ufs-close]").onclick=()=>{URL.revokeObjectURL(url);wrap.remove()};
+   wrap.onclick=e=>{if(e.target===wrap){URL.revokeObjectURL(url);wrap.remove()}};
+   const dl=wrap.querySelector("[data-ufs-download]");if(dl)dl.onclick=()=>window.open(url,"_blank","noopener,noreferrer");
+ }
+ function add(incoming){for(const f of incoming){if(f)files.push(f)}render()}
+ input.onchange=()=>{add([...input.files]);input.value=""};
+ root.querySelector("[data-ufs-choose]").onclick=e=>{e.stopPropagation();input.click()};
+ drop.onclick=e=>{if(!e.target.closest("button"))input.click()};
+ drop.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();input.click()}};
+ drop.ondragover=e=>{e.preventDefault();drop.classList.add("drag")};
+ drop.ondragleave=()=>drop.classList.remove("drag");
+ drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");add([...e.dataTransfer.files])};
+ search.oninput=render;
+ root.querySelector("[data-ufs-clear]").onclick=()=>{files=[];render()};
+}
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
  document.title=`${c.name} Tools — Toolzy`;
