@@ -1,0 +1,7 @@
+import {style,qs} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">local_gas_station</div><div><h2>Fuel Cost</h2><p>Estimate fuel used and trip cost from mileage and distance.</p></div></div><div class="ut-grid"><label class="ut-field"><span>Distance</span><input data-distance type="number" min="0" value="250"></label><label class="ut-field"><span>Vehicle efficiency (km/L)</span><input data-mileage type="number" min="0.1" value="15"></label><label class="ut-field"><span>Fuel price / L</span><input data-price type="number" min="0" step="0.01" value="105"></label></div><div class="ut-grid" data-out></div></div></section>';
+ function draw(){const d=Number(qs(root,'[data-distance]').value)||0,m=Number(qs(root,'[data-mileage]').value)||1,p=Number(qs(root,'[data-price]').value)||0,l=d/m,c=l*p;qs(root,'[data-out]').innerHTML='<div class="ut-stat"><span>Fuel needed</span><strong>'+l.toFixed(2)+' L</strong></div><div class="ut-stat"><span>Trip cost</span><strong>'+c.toFixed(2)+'</strong></div><div class="ut-stat"><span>Cost / km</span><strong>'+(c/Math.max(1,d)).toFixed(2)+'</strong></div>'}
+ root.querySelectorAll('input').forEach(x=>x.oninput=draw);draw();
+}

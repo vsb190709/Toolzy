@@ -1,0 +1,7 @@
+import {style,qs} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">savings</div><div><h2>Savings Goal</h2><p>Work out a target contribution for a simple savings goal.</p></div></div><div class="ut-grid"><label class="ut-field"><span>Goal amount</span><input data-goal type="number" min="0" value="50000"></label><label class="ut-field"><span>Already saved</span><input data-saved type="number" min="0" value="12000"></label><label class="ut-field"><span>Months left</span><input data-months type="number" min="1" max="600" value="8"></label></div><div class="ut-grid" data-out></div></div></section>';
+ function draw(){const g=Math.max(0,Number(qs(root,'[data-goal]').value)||0),s=Math.max(0,Number(qs(root,'[data-saved]').value)||0),m=Math.max(1,Number(qs(root,'[data-months]').value)||1),left=Math.max(0,g-s);qs(root,'[data-out]').innerHTML='<div class="ut-stat"><span>Remaining</span><strong>'+left.toFixed(2)+'</strong></div><div class="ut-stat"><span>Per month</span><strong>'+(left/m).toFixed(2)+'</strong></div><div class="ut-stat"><span>Progress</span><strong>'+Math.min(100,s/g*100||0).toFixed(1)+'%</strong></div>'}
+ root.querySelectorAll('input').forEach(x=>x.oninput=draw);draw();
+}

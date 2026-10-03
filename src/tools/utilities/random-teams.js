@@ -1,0 +1,6 @@
+import {style,qs,shuffle,esc} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">groups</div><div><h2>Random Team Generator</h2><p>Shuffle names into balanced teams without needing an account.</p></div></div><label class="ut-field"><span>Names</span><textarea data-in placeholder="Aarav\nMaya\nRiya\nKabir\nNoah\nSara"></textarea></label><label class="ut-field"><span>Number of teams</span><input data-n type="number" min="2" max="20" value="2"></label><div class="ut-actions"><button class="primary" data-go>Make teams</button></div><div class="ut-grid" data-out></div></div></section>';
+ qs(root,'[data-go]').onclick=()=>{const names=shuffle(qs(root,'[data-in]').value.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean)),n=Math.min(20,Math.max(2,Number(qs(root,'[data-n]').value)||2));if(names.length<n){qs(root,'[data-out]').textContent='Need at least '+n+' names.';return}const teams=Array.from({length:n},()=>[]);names.forEach((x,i)=>teams[i%n].push(x));qs(root,'[data-out]').innerHTML=teams.map((team,i)=>'<div class="ut-stat"><span>Team '+(i+1)+'</span><strong>'+team.map(esc).join(', ')+'</strong></div>').join('')};
+}

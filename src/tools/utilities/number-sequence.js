@@ -1,0 +1,7 @@
+import {style,qs} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">123</div><div><h2>Number Sequence Generator</h2><p>Create arithmetic or geometric sequences instantly.</p></div></div><div class="ut-grid"><label class="ut-field"><span>Start</span><input data-start type="number" value="1"></label><label class="ut-field"><span>Step / ratio</span><input data-step type="number" value="2"></label><label class="ut-field"><span>Count</span><input data-count type="number" min="1" max="500" value="20"></label><label class="ut-field"><span>Mode</span><select data-mode><option value="add">Add step</option><option value="multiply">Multiply ratio</option></select></label></div><div class="ut-actions"><button class="primary" data-go>Generate</button><button data-copy>Copy</button></div><div class="ut-output" data-out>1, 3, 5…</div></div></section>';
+ qs(root,'[data-go]').onclick=()=>{let x=Number(qs(root,'[data-start]').value)||0,step=Number(qs(root,'[data-step]').value)||0,n=Math.min(500,Math.max(1,Number(qs(root,'[data-count]').value)||20)),mul=qs(root,'[data-mode]').value==='multiply';const a=[];for(let i=0;i<n;i++){a.push(String(Number(x.toPrecision(12))));x=mul?x*step:x+step}qs(root,'[data-out]').textContent=a.join(', ')};
+ qs(root,'[data-copy]').onclick=()=>navigator.clipboard?.writeText(qs(root,'[data-out]').textContent);
+}

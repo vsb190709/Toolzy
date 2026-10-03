@@ -1,0 +1,9 @@
+import {style,qs,esc} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">leaderboard</div><div><h2>Scoreboard</h2><p>Touch-friendly scoring for games, quizzes and practice sessions.</p></div></div><div class="ut-actions"><button class="primary" data-add>Add player</button><button data-reset>Reset scores</button></div><div class="ut-list" data-list></div></div></section>';
+ let players=[{name:'Player 1',score:0},{name:'Player 2',score:0}];
+ function draw(){const max=Math.max(...players.map(p=>p.score),0);qs(root,'[data-list]').innerHTML=players.map((p,i)=>'<div class="ut-row"><div><strong>'+esc(p.name)+'</strong><div class="ut-note">'+(p.score===max?'Leading · ':'')+'Score: '+p.score+'</div></div><div class="ut-actions"><button data-minus="'+i+'">−1</button><button data-plus="'+i+'">+1</button><button data-plus5="'+i+'">+5</button><button data-del="'+i+'" aria-label="Remove player">×</button></div></div>').join('');root.querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>{players[+b.dataset.plus].score++;draw()});root.querySelectorAll('[data-minus]').forEach(b=>b.onclick=()=>{players[+b.dataset.minus].score--;draw()});root.querySelectorAll('[data-plus5]').forEach(b=>b.onclick=()=>{players[+b.dataset.plus5].score+=5;draw()});root.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(players.length>1){players.splice(+b.dataset.del,1);draw()}})}
+ qs(root,'[data-add]').onclick=()=>{const name=window.prompt('Player or team name');if(name?.trim())players.push({name:name.trim(),score:0});draw()};
+ qs(root,'[data-reset]').onclick=()=>{players.forEach(p=>p.score=0);draw()};draw();
+}

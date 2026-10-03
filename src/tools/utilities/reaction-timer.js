@@ -1,0 +1,8 @@
+import {style,qs,randInt} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card ut-center"><div class="ut-head"><div class="ut-head-icon">bolt</div><div><h2>Reaction Timer</h2><p>Wait for the signal, then click the arena as fast as possible.</p></div></div><div class="ut-game" data-arena style="width:100%;border:1px solid var(--outline-variant);border-radius:24px;padding:40px"><div class="ut-big" data-main>Ready?</div><button class="primary" data-start>Start test</button><div class="ut-output" data-out>Best: —</div></div></div></section>';
+ const arena=qs(root,'[data-arena]');let waiting=false,armed=false,timer=null,start=0,best=Infinity;
+ qs(root,'[data-start]').onclick=()=>{clearTimeout(timer);waiting=true;armed=false;arena.classList.remove('ut-success');qs(root,'[data-main]').textContent='Wait…';qs(root,'[data-start]').disabled=true;timer=setTimeout(()=>{waiting=false;armed=true;start=performance.now();qs(root,'[data-main]').textContent='CLICK!';arena.classList.add('ut-success')},randInt(1000,3500))};
+ arena.onclick=e=>{if(e.target.matches('[data-start]'))return;if(waiting){clearTimeout(timer);waiting=false;qs(root,'[data-main]').textContent='Too early!';qs(root,'[data-start]').disabled=false;return}if(armed){const ms=performance.now()-start;armed=false;arena.classList.remove('ut-success');best=Math.min(best,ms);qs(root,'[data-main]').textContent=Math.round(ms)+' ms';qs(root,'[data-out]').textContent='Best: '+Math.round(best)+' ms';qs(root,'[data-start]').disabled=false}};
+}

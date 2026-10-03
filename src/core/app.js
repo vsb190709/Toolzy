@@ -61,8 +61,17 @@ function developerCard(t){
  </button>`;
 }
 
+function utilitiesCard(t){
+ return `<button class="tool-card utilities-card" data-tool="${t.id}" aria-label="${escapeHtml(t.name)}">
+   <span class="tool-icon">${icon(t.icon)}</span>
+   <span class="tool-card-copy"><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p></span>
+   <span class="tool-card-arrow" aria-hidden="true">${icon("arrow")}</span>
+ </button>`;
+}
+
 function renderSearch(q){
  const main=document.querySelector("#main");
+ if(main?._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(!q.trim()){renderRoute(route());return}
  const x=q.toLowerCase();
  const found=tools.filter(t=>(t.name+" "+t.description+" "+t.category).toLowerCase().includes(x));
@@ -72,6 +81,7 @@ function renderSearch(q){
 
 export function renderRoute(r){
  const main=document.querySelector("#main"); if(!main)return;
+ if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
  if(r.length===1 && getCategory(r[0]))return renderCategory(r[0]);
@@ -84,7 +94,7 @@ function renderHome(){
  const recent=state.recent.map(getTool).filter(Boolean);
  document.title="Toolzy — All-in-one toolbox";
  const heroArt = art("build","Toolzy toolbox");
- const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",image:"image",pdf:"pdf",documents:"folder",security:"lock"};
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",image:"image",pdf:"pdf",documents:"folder",security:"lock"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
@@ -113,6 +123,7 @@ function renderHome(){
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
  document.title=`${c.name} Tools — Toolzy`;
+ if(id==="utilities")return renderUtilitiesCategory(c,list);
 
  if(c.subcategories?.length){
    const groups=c.subcategories.map(sub=>{
@@ -160,7 +171,7 @@ function renderCategory(id){
    document.querySelector("#main").innerHTML=`
      <div class="page-head">
        <div class="page-art-row">
-         ${art(({basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",image:"image",pdf:"pdf",documents:"folder",security:"lock"})[c.id]||"build", c.name)}
+         ${art(({basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",image:"image",pdf:"pdf",documents:"folder",security:"lock"})[c.id]||"build", c.name)}
          <div><p class="eyebrow">${icon(c.icon)} ${c.name}</p><h1>${c.name} Tools</h1><p>${c.description}</p></div>
        </div>
      </div>
@@ -169,6 +180,48 @@ function renderCategory(id){
  bindToolCards();
 }
 
+function renderUtilitiesCategory(c,list){
+ const descriptions={
+   time:"Clocks, dates and planning around time.",
+   random:"Shuffle, generate and play with randomness.",
+   planning:"Quick helpers for money, goals and everyday planning.",
+   browser:"Inspect what your browser and device expose.",
+   creative:"Color, emoji and browser-native creative helpers.",
+   games:"Fast little games built for instant fun."
+ };
+ const groups=c.subcategories.map(sub=>{
+   const items=list.filter(t=>t.subcategory===sub.id); if(!items.length)return "";
+   return `<section class="utilities-group" id="utilities-${sub.id}">
+     <div class="utilities-group-head">
+       <div class="utilities-group-title"><span class="utilities-group-icon">${icon(sub.icon)}</span><div><p class="eyebrow">Utilities collection</p><h2>${sub.name}</h2><p>${descriptions[sub.id]||""}</p></div></div>
+       <span class="tool-count"><strong>${items.length}</strong> tools</span>
+     </div>
+     <div class="tool-grid utilities-tool-grid">${items.map(utilitiesCard).join("")}</div>
+   </section>`;
+ }).join("");
+ const jumps=c.subcategories.map(sub=>{
+   const count=list.filter(t=>t.subcategory===sub.id).length;
+   return `<button class="chip" data-utility-jump="${sub.id}">${icon(sub.icon)} ${sub.name} · ${count}</button>`;
+ }).join("");
+ document.querySelector("#main").innerHTML=`
+   <section class="utilities-hero">
+     <div class="utilities-hero-main">
+       <div class="utilities-hero-icon">${icon("handyman")}</div>
+       <div class="utilities-hero-copy">
+         <p class="eyebrow">Toolzy · Utilities</p>
+         <h1>Utilities that are<br><span>actually fun to use.</span></h1>
+         <p>Forty browser-first helpers for time, planning, random picks, device checks, creativity and quick games.</p>
+         <div class="utilities-hero-pills"><span>${list.length} tools</span><span>No sign-in</span><span>Browser-first</span></div>
+       </div>
+     </div>
+     <div class="utilities-hero-orb" aria-hidden="true"><span>${icon("bolt")}</span><strong>GO</strong></div>
+   </section>
+   <div class="utilities-jumps" aria-label="Utility collections">${jumps}</div>
+   <div class="utilities-groups">${groups}</div>`;
+ const main=document.querySelector("#main");
+ main.querySelectorAll("[data-utility-jump]").forEach(btn=>btn.onclick=()=>main.querySelector("#utilities-"+btn.dataset.utilityJump)?.scrollIntoView({behavior:"smooth",block:"start"}));
+ bindToolCards();
+}
 function developerSubDescription(id){
  const map={
    data:"JSON, XML, YAML, CSV and configuration formats.",
@@ -211,7 +264,9 @@ async function renderTool(id){
  try{
    const mod=await import(t.module);
    if(typeof mod.mount!=="function")throw new Error("Tool module does not export mount().");
-   await mod.mount(document.querySelector("#tool-mount"), t);
+   const mountRoot=document.querySelector("#tool-mount");
+   await mod.mount(mountRoot, t);
+   document.querySelector("#main")._toolCleanup=typeof mountRoot._cleanup==="function"?mountRoot._cleanup:null;
  }catch(error){
    console.error("Tool load error:", error);
    document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;

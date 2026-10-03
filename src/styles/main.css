@@ -518,3 +518,53 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
   .developer-tool-copy h1{font-size:30px}
   .developer-tool-copy p{font-size:14px}
 }
+
+/* Utilities — playful Material 3 workspace */
+.utilities-hero{
+  display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;align-items:center;
+  margin:8px 0 18px;padding:30px;border:1px solid var(--outline-variant);border-radius:32px;
+  background:linear-gradient(135deg,var(--primary-container),var(--tertiary-container));overflow:hidden;
+}
+.utilities-hero-main{display:flex;align-items:flex-start;gap:18px;min-width:0}
+.utilities-hero-icon{width:66px;height:66px;border-radius:22px;display:grid;place-items:center;background:var(--surface);color:var(--primary);box-shadow:var(--shadow-2);flex:none}
+.utilities-hero-icon .material-symbols-rounded{font-size:34px}
+.utilities-hero-copy h1{margin:0 0 8px;font-size:clamp(36px,5vw,58px)}
+.utilities-hero-copy h1 span{color:var(--primary)}
+.utilities-hero-copy p:not(.eyebrow){max-width:700px;margin:0;font-size:16px;line-height:1.6}
+.utilities-hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.utilities-hero-pills span{padding:7px 11px;border:1px solid color-mix(in srgb,var(--on-surface) 14%,transparent);border-radius:999px;background:color-mix(in srgb,var(--surface) 62%,transparent);font-size:12px;font-weight:750}
+.utilities-hero-orb{width:180px;height:180px;border-radius:46px;margin-left:auto;background:color-mix(in srgb,var(--surface) 58%,transparent);display:grid;place-items:center;align-content:center;gap:8px;box-shadow:var(--shadow-2);color:var(--primary);transform:rotate(3deg)}
+.utilities-hero-orb .material-symbols-rounded{font-size:60px}
+.utilities-hero-orb strong{font-size:12px;letter-spacing:.18em}
+.utilities-jumps{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.utilities-jumps .chip{display:inline-flex;align-items:center;gap:6px}
+.utilities-jumps .chip .material-symbols-rounded{font-size:18px}
+.utilities-groups{display:grid;gap:26px}
+.utilities-group{scroll-margin-top:96px;padding:22px;border:1px solid var(--outline-variant);border-radius:28px;background:var(--surface-container-low)}
+.utilities-group-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px}
+.utilities-group-title{display:flex;align-items:flex-start;gap:14px}
+.utilities-group-icon{width:50px;height:50px;display:grid;place-items:center;border-radius:17px;background:var(--primary-container);color:var(--on-primary-container);flex:none}
+.utilities-group-icon .material-symbols-rounded{font-size:25px}
+.utilities-group-title h2{margin:0 0 4px}
+.utilities-group-title p:not(.eyebrow){margin:0;font-size:13px}
+.utilities-group .tool-count{padding:8px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--outline-variant);font-size:12px;color:var(--on-surface-variant);white-space:nowrap}
+.utilities-group .tool-count strong{color:var(--on-surface);margin-right:4px}
+.utilities-tool-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.utilities-card{min-height:126px;padding:16px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:start;gap:12px;position:relative;overflow:hidden}
+.utilities-card .tool-card-copy{min-width:0}
+.utilities-card .tool-card-copy h3{margin-bottom:5px}
+.utilities-card .tool-card-copy p{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.utilities-card .tool-card-arrow{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--primary);opacity:.8}
+.utilities-card .tool-card-arrow .material-symbols-rounded{font-size:19px}
+.utilities-card:hover .tool-card-arrow{background:var(--primary-container);opacity:1}
+@media(max-width:1100px){.utilities-tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.utilities-hero{grid-template-columns:1fr 160px}.utilities-hero-orb{width:150px;height:150px}}
+@media(max-width:860px){.utilities-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+  .utilities-hero{grid-template-columns:1fr;padding:22px;border-radius:26px}
+  .utilities-hero-main{gap:13px}
+  .utilities-hero-orb{width:100%;height:100px;margin:0;transform:none;border-radius:24px;display:flex;justify-content:center;gap:10px}
+  .utilities-hero-orb .material-symbols-rounded{font-size:42px}
+  .utilities-group{padding:16px;border-radius:22px}
+  .utilities-group-head{align-items:flex-start;flex-direction:column}
+  .utilities-tool-grid{grid-template-columns:1fr}
+}

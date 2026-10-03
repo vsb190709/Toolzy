@@ -1,0 +1,7 @@
+import {style,qs} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">percent</div><div><h2>Discount Breakdown</h2><p>See original price, savings and final price instantly.</p></div></div><div class="ut-grid"><label class="ut-field"><span>Original price</span><input data-p type="number" min="0" step="0.01" value="2499"></label><label class="ut-field"><span>Discount %</span><input data-d type="number" min="0" max="100" step="0.1" value="20"></label><label class="ut-field"><span>Tax % after discount</span><input data-t type="number" min="0" max="100" step="0.1" value="0"></label></div><div class="ut-grid" data-out></div></div></section>';
+ function draw(){const p=Math.max(0,Number(qs(root,'[data-p]').value)||0),d=Math.min(100,Math.max(0,Number(qs(root,'[data-d]').value)||0)),t=Math.max(0,Number(qs(root,'[data-t]').value)||0),save=p*d/100,sub=p-save,total=sub*(1+t/100);qs(root,'[data-out]').innerHTML='<div class="ut-stat"><span>You save</span><strong>'+save.toFixed(2)+'</strong></div><div class="ut-stat"><span>After discount</span><strong>'+sub.toFixed(2)+'</strong></div><div class="ut-stat"><span>Final with tax</span><strong>'+total.toFixed(2)+'</strong></div>'}
+ root.querySelectorAll('input').forEach(x=>x.oninput=draw);draw();
+}

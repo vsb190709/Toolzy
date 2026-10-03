@@ -1,0 +1,9 @@
+import {style,qs,copy} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">password</div><div><h2>Password Generator</h2><p>Generate strong local passwords with configurable characters.</p></div></div><div class="ut-grid"><label class="ut-field"><span>Length</span><input data-len type="number" min="4" max="128" value="20"></label><label class="ut-field"><span>Count</span><input data-count type="number" min="1" max="20" value="1"></label></div><div class="ut-grid-3"><label><input data-upper type="checkbox" checked> Uppercase</label><label><input data-lower type="checkbox" checked> Lowercase</label><label><input data-num type="checkbox" checked> Numbers</label><label><input data-symbol type="checkbox" checked> Symbols</label></div><div class="ut-actions"><button class="primary" data-go>Generate</button><button data-copy>Copy first</button></div><div class="ut-list" data-out></div></div></section>';
+ const sets={upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',lower:'abcdefghijklmnopqrstuvwxyz',num:'0123456789',symbol:'!@#$%^&*()-_=+[]{}'};
+ let first='';
+ qs(root,'[data-go]').onclick=()=>{const len=Math.min(128,Math.max(4,Number(qs(root,'[data-len]').value)||20)),count=Math.min(20,Math.max(1,Number(qs(root,'[data-count]').value)||1));let chars='';['upper','lower','num','symbol'].forEach(k=>{if(qs(root,'[data-'+k+']').checked)chars+=sets[k]});if(!chars){qs(root,'[data-out]').textContent='Choose at least one character set.';return}const arr=[];for(let n=0;n<count;n++){const bytes=new Uint32Array(len);crypto.getRandomValues(bytes);arr.push(Array.from(bytes,v=>chars[v%chars.length]).join(''))}first=arr[0];qs(root,'[data-out]').innerHTML=arr.map(x=>'<div class="ut-row"><code>'+x+'</code></div>').join('')};
+ qs(root,'[data-copy]').onclick=()=>copy(first);
+}

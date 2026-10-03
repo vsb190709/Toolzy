@@ -1,0 +1,6 @@
+import {style,qs} from './helpers.js';
+export function mount(root){
+ style();
+ root.innerHTML='<section class="ut-page"><div class="ut-card"><div class="ut-head"><div class="ut-head-icon">school</div><div><h2>Grade Tracker</h2><p>Add marks and weights to calculate a weighted score.</p></div></div><label class="ut-field"><span>Assessments · one per line as mark,weight</span><textarea data-in placeholder="85,30\n92,20\n76,50"></textarea></label><div class="ut-actions"><button class="primary" data-go>Calculate</button></div><div class="ut-grid" data-out></div></div></section>';
+ qs(root,'[data-go]').onclick=()=>{const rows=qs(root,'[data-in]').value.split(/\\r?\\n/).map(x=>x.split(',').map(Number)).filter(x=>x.length>=2&&x.every(Number.isFinite));if(!rows.length){qs(root,'[data-out]').textContent='Add rows such as 85,30';return}const w=rows.reduce((a,x)=>a+x[1],0),score=rows.reduce((a,x)=>a+x[0]*x[1],0)/w;qs(root,'[data-out]').innerHTML='<div class="ut-stat"><span>Weighted score</span><strong>'+score.toFixed(2)+'</strong></div><div class="ut-stat"><span>Total weight</span><strong>'+w+'</strong></div>'};
+}
