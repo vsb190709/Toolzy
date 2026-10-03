@@ -129,7 +129,7 @@ function renderCategory(id){
    }).join("");
 
    document.querySelector("#main").innerHTML=`
-     <section class="developer-hero">
+     <section class="developer-header">
        <div class="developer-hero-main">
          <div class="developer-hero-icon">${icon("code")}</div>
          <div>
