@@ -126,7 +126,6 @@ function renderHome(){
 function renderProduct(id){
  const product=products.find(p=>p.id===id);
  if(!product)return renderNotFound();
- if(id==="files")return renderUniversalFiles();
  document.title=`${product.name} — Toolzy`;
  document.querySelector("#main").innerHTML=`
    <section class="product-hero">
@@ -139,83 +138,7 @@ function renderProduct(id){
      <p>This workspace is planned as a dedicated full-featured application, separate from the everyday Tools collection.</p>
    </section>`;
 }
-function renderUniversalFiles(){
- document.title="Universal File System — Toolzy";
- document.querySelector("#main").innerHTML=`
-   <section class="ufs-hero">
-     <div class="ufs-hero-main"><div class="ufs-hero-icon">${icon("folder_open")}</div><div>
-       <p class="eyebrow">Toolzy · Product 8</p>
-       <h1>Universal File System</h1>
-       <p>Open local files, identify their format, preview supported types, and inspect useful metadata.</p>
-       <div class="ufs-pills"><span>2K+ format target</span><span>Open & view</span><span>Metadata</span><span>Local-first</span></div>
-     </div></div>
-     <div class="ufs-hero-stat"><strong>2K+</strong><span>format target</span></div>
-   </section>
-   <section class="ufs-open-panel">
-     <input data-ufs-input type="file" hidden>
-     <button class="ufs-open-button" data-ufs-open>${icon("folder_open")} <span><strong>Open a file</strong><small>Choose any file from your device</small></span></button>
-     <div class="ufs-drop-mini" data-ufs-drop>${icon("upload_file")} Drop a file here</div>
-   </section>
-   <section class="ufs-result" data-ufs-result hidden></section>
-   <section class="ufs-format-panel">
-     <div class="ufs-format-search"><span class="material-symbols-rounded">search</span><input data-format-search placeholder="Search supported extensions…" autocomplete="off"></div>
-     <div class="ufs-format-results" data-format-results></div>
-   </section>`;
- const root=document.querySelector("#main"), input=root.querySelector("[data-ufs-input]"), openBtn=root.querySelector("[data-ufs-open]"), drop=root.querySelector("[data-ufs-drop]"), result=root.querySelector("[data-ufs-result]"), search=root.querySelector("[data-format-search]"), formatsEl=root.querySelector("[data-format-results]");
- const formatMap={
-  txt:["Plain Text","Text","text/plain"],md:["Markdown","Text","text/markdown"],json:["JSON","Data","application/json"],xml:["XML","Data","application/xml"],csv:["CSV","Spreadsheet","text/csv"],tsv:["TSV","Spreadsheet","text/tab-separated-values"],html:["HTML","Web","text/html"],htm:["HTML","Web","text/html"],css:["CSS","Source Code","text/css"],js:["JavaScript","Source Code","text/javascript"],ts:["TypeScript","Source Code","text/typescript"],py:["Python","Source Code","text/x-python"],java:["Java","Source Code","text/x-java"],c:["C Source","Source Code","text/x-c"],cpp:["C++ Source","Source Code","text/x-c++"],h:["C/C++ Header","Source Code","text/x-c"],hpp:["C++ Header","Source Code","text/x-c++"],cs:["C# Source","Source Code","text/plain"],php:["PHP Source","Source Code","text/x-php"],rb:["Ruby Source","Source Code","text/x-ruby"],go:["Go Source","Source Code","text/x-go"],rs:["Rust Source","Source Code","text/plain"],sql:["SQL","Source Code","application/sql"],sh:["Shell Script","Source Code","application/x-sh"],yaml:["YAML","Data","text/yaml"],yml:["YAML","Data","text/yaml"],toml:["TOML","Data","application/toml"],
-  pdf:["Portable Document Format","Document","application/pdf"],doc:["Microsoft Word Document","Document","application/msword"],docx:["Microsoft Word Open XML","Document","application/vnd.openxmlformats-officedocument.wordprocessingml.document"],odt:["OpenDocument Text","Document","application/vnd.oasis.opendocument.text"],rtf:["Rich Text Format","Document","application/rtf"],pages:["Apple Pages","Document","application/octet-stream"],xls:["Microsoft Excel","Spreadsheet","application/vnd.ms-excel"],xlsx:["Excel Open XML","Spreadsheet","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],xlsm:["Excel Macro-Enabled Workbook","Spreadsheet","application/vnd.ms-excel.sheet.macroEnabled.12"],ods:["OpenDocument Spreadsheet","Spreadsheet","application/vnd.oasis.opendocument.spreadsheet"],ppt:["PowerPoint","Presentation","application/vnd.ms-powerpoint"],pptx:["PowerPoint Open XML","Presentation","application/vnd.openxmlformats-officedocument.presentationml.presentation"],odp:["OpenDocument Presentation","Presentation","application/vnd.oasis.opendocument.presentation"],
-  jpg:["JPEG Image","Image","image/jpeg"],jpeg:["JPEG Image","Image","image/jpeg"],png:["PNG Image","Image","image/png"],gif:["GIF Image","Image","image/gif"],webp:["WebP Image","Image","image/webp"],avif:["AVIF Image","Image","image/avif"],bmp:["Bitmap Image","Image","image/bmp"],svg:["Scalable Vector Graphics","Image","image/svg+xml"],ico:["Icon File","Image","image/x-icon"],tif:["TIFF Image","Image","image/tiff"],tiff:["TIFF Image","Image","image/tiff"],heic:["High Efficiency Image","Image","image/heic"],heif:["High Efficiency Image","Image","image/heif"],psd:["Adobe Photoshop Document","Image","image/vnd.adobe.photoshop"],psb:["Photoshop Large Document","Image","image/vnd.adobe.photoshop"],xcf:["GIMP Image","Image","image/x-xcf"],jxl:["JPEG XL Image","Image","image/jxl"],
-  mp3:["MP3 Audio","Audio","audio/mpeg"],wav:["WAVE Audio","Audio","audio/wav"],flac:["Free Lossless Audio","Audio","audio/flac"],ogg:["Ogg Audio","Audio","audio/ogg"],oga:["Ogg Audio","Audio","audio/ogg"],opus:["Opus Audio","Audio","audio/opus"],m4a:["MPEG-4 Audio","Audio","audio/mp4"],aac:["AAC Audio","Audio","audio/aac"],wma:["Windows Media Audio","Audio","audio/x-ms-wma"],aiff:["Audio Interchange File","Audio","audio/aiff"],
-  mp4:["MPEG-4 Video","Video","video/mp4"],webm:["WebM Video","Video","video/webm"],mov:["QuickTime Movie","Video","video/quicktime"],mkv:["Matroska Video","Video","video/x-matroska"],avi:["Audio Video Interleave","Video","video/x-msvideo"],wmv:["Windows Media Video","Video","video/x-ms-wmv"],m4v:["MPEG-4 Video","Video","video/x-m4v"],mpeg:["MPEG Video","Video","video/mpeg"],mpg:["MPEG Video","Video","video/mpeg"],3gp:["3GPP Video","Video","video/3gpp"],flv:["Flash Video","Video","video/x-flv"],
-  zip:["ZIP Archive","Archive","application/zip"],rar:["RAR Archive","Archive","application/vnd.rar"],7z:["7-Zip Archive","Archive","application/x-7z-compressed"],tar:["Tape Archive","Archive","application/x-tar"],gz:["GZip Compressed Archive","Archive","application/gzip"],bz2:["BZip2 Archive","Archive","application/x-bzip2"],xz:["XZ Compressed Archive","Archive","application/x-xz"],zst:["Zstandard Archive","Archive","application/zstd"],iso:["ISO Disc Image","Disk Image","application/x-iso9660-image"],
-  otf:["OpenType Font","Font","font/otf"],ttf:["TrueType Font","Font","font/ttf"],woff:["Web Open Font Format","Font","font/woff"],woff2:["Web Open Font Format 2","Font","font/woff2"]
- };
- const extraExts="3fr arw cr2 cr3 crw dcr dng erf iiq kdc mef mos mrw nef nrw orf pef raf raw rw2 sr2 srf 3ga aax ac3 amr ape au caf dsf dss dts eac3 mka m4b m4r mpc ra wv 3g2 asf av1 avs dash dat divx dv f4v h264 hevc m2t m2ts m2v mj2 mjpeg mk3d mxf ogv rm rmvb swf ts vob vcd dxf dwg dgn step stp iges igs obj glb gltf fbx blend 3ds dae ply stl amf wrl vrml emf wmf eps exr hdr tga pcx ppm pgm pbm pnm jp2 j2k jpf jpx jpm j2c apng mng mpo dds tga xpm xbm pal pam dfont cur cdr pes dst emb abr ase ai indd inddx sketch fig afdesign afphoto numbers key kdb kdbx db sqlite sqlite3 mdb accdb parquet avro arrow msg eml mbox vcf ics epub mobi azw azw3 chm djvu cbz cbr tex latex bib log ini cfg conf env dat bin dll exe dmg pkg apk ipa deb rpm appimage wasm class jar war ear swf flv fnt fon cab lz lzh lzma z zipx ar sit sitx ace arc cpio rar5 tgz tbz tbz2 bz xz zst weba webm m2ts mts ts mxf r3d braw mxf nef crw".split(" ");
- const knownExts=Object.keys(formatMap);
- const allExts=[...new Set([...knownExts,...extraExts])].sort();
- function esc2(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
- function extOf(f){const n=f.name.toLowerCase();const p=n.lastIndexOf(".");return p>0?n.slice(p+1):""}
- function humanSize(n){const u=["B","KB","MB","GB","TB"];let i=0,x=n;while(x>=1024&&i<4){x/=1024;i++}return `${x.toFixed(i?2:0)} ${u[i]}`}
- function detect(f){
-  const e=extOf(f), m=f.type||formatMap[e]?.[2]||"application/octet-stream", info=formatMap[e];
-  let category=info?.[1]||"Unknown", name=info?.[0]||"Unknown / binary format";
-  if(!info){
-   if(m.startsWith("image/"))category="Image"; else if(m.startsWith("audio/"))category="Audio"; else if(m.startsWith("video/"))category="Video"; else if(m.startsWith("text/"))category="Text";
-  }
-  return {e,m,category,name,known:!!info};
- }
- function showFile(f){
-  const d=detect(f), url=URL.createObjectURL(f);
-  result.hidden=false;
-  let preview="";
-  if(d.m.startsWith("image/")||["svg"].includes(d.e))preview=`<img class="ufs-preview-image" src="${url}" alt="${esc2(f.name)}">`;
-  else if(d.m.startsWith("video/"))preview=`<video class="ufs-preview-media" controls playsinline src="${url}"></video>`;
-  else if(d.m.startsWith("audio/"))preview=`<audio class="ufs-preview-audio" controls src="${url}"></audio>`;
-  else if(d.m==="application/pdf")preview=`<iframe class="ufs-preview-pdf" src="${url}" title="PDF preview"></iframe>`;
-  else if(d.category==="Text"||d.m.startsWith("text/")||["json","xml","yaml","yml","toml","csv","tsv","md","log","ini","cfg","conf","js","ts","css","py","java","c","cpp","h","hpp","cs","php","rb","go","rs","sql","sh"].includes(d.e)){
-   const reader=new FileReader();reader.onload=()=>{const pre=result.querySelector("[data-text-preview]");if(pre)pre.textContent=String(reader.result).slice(0,200000)};reader.readAsText(f);preview='<pre class="ufs-text-preview" data-text-preview>Reading file…</pre>';
-  } else preview=`<div class="ufs-no-preview">${icon("visibility_off")}<strong>Preview not available in the browser</strong><span>The format was identified, and its metadata is shown below.</span></div>`;
-  result.innerHTML=`
-   <div class="ufs-file-head"><div class="ufs-file-type-icon">${icon(d.category==="Image"?"image":d.category==="Audio"?"music_note":d.category==="Video"?"movie":d.category==="Document"?"description":"insert_drive_file")}</div><div><p class="eyebrow">${esc2(d.category)}</p><h2>${esc2(f.name)}</h2><p>.${esc2(d.e||"no extension")} · ${esc2(d.name)}</p></div><button class="icon-btn" data-ufs-close aria-label="Close">${icon("close")}</button></div>
-   <div class="ufs-preview-wrap">${preview}</div>
-   <div class="ufs-metadata"><h3>Metadata</h3><div class="ufs-meta-grid">
-    <div><span>Name</span><strong>${esc2(f.name)}</strong></div><div><span>Extension</span><strong>.${esc2(d.e||"none")}</strong></div>
-    <div><span>Detected type</span><strong>${esc2(d.name)}</strong></div><div><span>MIME type</span><strong>${esc2(d.m)}</strong></div>
-    <div><span>Category</span><strong>${esc2(d.category)}</strong></div><div><span>Size</span><strong>${humanSize(f.size)}</strong></div>
-    <div><span>Last modified</span><strong>${new Date(f.lastModified).toLocaleString()}</strong></div><div><span>Browser preview</span><strong>${preview.startsWith("<div")?"Metadata only":"Available"}</strong></div>
-   </div></div>`;
-  result.querySelector("[data-ufs-close]").onclick=()=>{URL.revokeObjectURL(url);result.hidden=true;result.innerHTML=""};
- }
- openBtn.onclick=()=>input.click();
- drop.onclick=()=>input.click();
- input.onchange=()=>{if(input.files[0])showFile(input.files[0]);input.value=""};
- drop.ondragover=e=>{e.preventDefault();drop.classList.add("drag")};
- drop.ondragleave=()=>drop.classList.remove("drag");
- drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");if(e.dataTransfer.files[0])showFile(e.dataTransfer.files[0])};
- function renderFormats(q=""){const x=q.trim().toLowerCase();const matches=allExts.filter(e=>!x||e.includes(x)||(formatMap[e]?.[0]||"").toLowerCase().includes(x)).slice(0,160);formatsEl.innerHTML=matches.map(e=>{const i=formatMap[e];return `<button class="ufs-extension" data-ext="${e}"><strong>.${e}</strong><span>${esc2(i?.[0]||"Recognized extension")}</span></button>`}).join("")||'<div class="ufs-empty">'+icon("search")+'<strong>No matching extension</strong></div>'}
- search.oninput=()=>renderFormats(search.value);renderFormats();
-}
+
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
  document.title=`${c.name} Tools — Toolzy`;
