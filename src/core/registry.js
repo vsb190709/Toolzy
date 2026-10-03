@@ -77,7 +77,7 @@ export const tools = [
   {id:"http-headers", category:"developer", subcategory:"web", name:"HTTP Header Parser", icon:"code", description:"Parse raw HTTP headers into structured key-value data.", module:"../tools/developer/http-headers.js"},
   {id:"user-agent", category:"developer", subcategory:"web", name:"User-Agent Parser", icon:"language", description:"Inspect browser and platform information from a user-agent string.", module:"../tools/developer/user-agent.js"},
   {id:"mime-types", category:"developer", subcategory:"web", name:"MIME Type Lookup", icon:"file", description:"Look up common MIME types and file extensions.", module:"../tools/developer/mime-types.js"},
-  {id:"color-converter", category:"developer", subcategory:"web", name:"Color Converter", icon:"palette", description:"Convert HEX, RGB and HSL colors.", module:"../tools/developer/color-converter.js"},
+  {id:"color-converter", category:"developer", subcategory:"web", name:"Color Converter", icon:"palette", description:"Pick colors and inspect HEX, RGB, HSL, HSV and CMYK values.", module:"../tools/developer/color-converter.js"},
   {id:"markdown-editor", category:"developer", subcategory:"code", name:"Markdown Editor", icon:"edit", description:"Write Markdown with a live preview.", module:"../tools/developer/markdown-editor.js"},
   {id:"html-formatter", category:"developer", subcategory:"code", name:"HTML Formatter", icon:"code", description:"Format HTML with readable indentation.", module:"../tools/developer/html-formatter.js"},
   {id:"css-formatter", category:"developer", subcategory:"code", name:"CSS Formatter", icon:"code", description:"Format CSS with readable indentation.", module:"../tools/developer/css-formatter.js"},
