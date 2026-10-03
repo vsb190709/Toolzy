@@ -1,0 +1,3 @@
+import { style, shell, qs, randomBytes } from "./helpers.js";
+const ulid=()=>{const a="0123456789ABCDEFGHJKMNPQRSTVWXYZ";let t=Date.now(),s="";for(let i=9;i>=0;i--){s=a[t%32]+s;t=Math.floor(t/32)}return s+[...randomBytes(16)].map(x=>a[x%32]).join("")};
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-row"><input class="dev-input" data-count type="number" value="5" min="1" max="100"><button class="primary" data-go>Generate</button></div><pre class="dev-output" data-out></pre>`);qs(root,"[data-go]").onclick=()=>{const n=Math.min(100,Math.max(1,+qs(root,"[data-count]").value||1));qs(root,"[data-out]").textContent=Array.from({length:n},ulid).join("\n")};qs(root,"[data-go]").click();}

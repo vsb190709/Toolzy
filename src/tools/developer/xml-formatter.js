@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>{const d=new DOMParser().parseFromString(v,"application/xml");if(d.querySelector("parsererror"))throw Error("Invalid XML");return new XMLSerializer().serializeToString(d).replace(/></g,">\n<");},"Paste XML…");}

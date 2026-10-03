@@ -1,4 +1,2 @@
-export function mount(el){
- el.innerHTML=`<div class="tool-form"><label>Count <input id="n" type="number" min="1" max="100" value="5"></label><button class="primary" id="go">Generate</button><textarea id="out" readonly></textarea></div>`;
- el.querySelector("#go").onclick=()=>{const n=Math.min(100,Math.max(1,Number(el.querySelector("#n").value)||1));el.querySelector("#out").value=Array.from({length:n},()=>crypto.randomUUID()).join("\n")};
-}
+import { style, shell, qs, uuidV4 } from "./helpers.js";
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-row"><input class="dev-input" data-count type="number" value="5" min="1" max="100"><button class="primary" data-go>Generate</button></div><pre class="dev-output" data-out></pre>`);qs(root,"[data-go]").onclick=()=>{const n=Math.min(100,Math.max(1,+qs(root,"[data-count]").value||1));qs(root,"[data-out]").textContent=Array.from({length:n},uuidV4).join("\n")};qs(root,"[data-go]").click();}

@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>[...v].map(c=>`U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")}  ${c}`).join("\n"),"Paste text…");}

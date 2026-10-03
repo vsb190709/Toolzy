@@ -1,0 +1,3 @@
+import { style, shell, qs, esc } from "./helpers.js";
+const md=s=>esc(s).replace(/^### (.*)$/gm,"<h3>$1</h3>").replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/^# (.*)$/gm,"<h1>$1</h1>").replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\*(.*?)\*/g,"<em>$1</em>").replace(/`([^`]+)`/g,"<code>$1</code>").replace(/^[-*] (.*)$/gm,"<li>$1</li>").replace(/\n{2,}/g,"<br><br>").replace(/\n/g,"<br>");
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-grid"><textarea class="dev-input" data-md placeholder="# Heading\n\nWrite **Markdown**…"></textarea><div class="dev-preview" data-preview></div></div>`);const update=()=>qs(root,"[data-preview]").innerHTML=md(qs(root,"[data-md]").value);qs(root,"[data-md]").oninput=update;update();}

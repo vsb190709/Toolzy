@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>{const out={};for(const line of v.split(/\r?\n/)){const i=line.indexOf(":");if(i>0)out[line.slice(0,i).trim()]=line.slice(i+1).trim();}return JSON.stringify(out,null,2)},"Paste raw HTTP headers…");}

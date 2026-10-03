@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>JSON.stringify({browser:/Edg\//.test(v)?"Microsoft Edge":/Chrome\//.test(v)?"Google Chrome":/Firefox\//.test(v)?"Mozilla Firefox":/Safari\//.test(v)?"Safari":"Unknown",mobile:/Mobile|Android|iPhone|iPad/i.test(v),platform:/Windows/.test(v)?"Windows":/Mac OS/.test(v)?"macOS":/Android/.test(v)?"Android":/iPhone|iPad/.test(v)?"iOS":/Linux/.test(v)?"Linux":"Unknown"},null,2),"Paste a User-Agent string…");}

@@ -1,0 +1,4 @@
+import { style, bindTextTool } from "./helpers.js";
+const format=(s)=>{let x=s.trim();x=x.replace(/\s*\{\s*/g," {\n").replace(/\s*\}\s*/g,"\n}\n").replace(/;\s*/g,";\n").replace(/,\s*/g,", ");let d=0;return x.split("\n").map(line=>{line=line.trim();if(line.startsWith("}"))d--;const r="  ".repeat(Math.max(0,d))+line;if(line.endsWith("{"))d++;return r}).filter(Boolean).join("\n");};
+const min=(s)=>s.replace(/\/\*[\s\S]*?\*\//g,"").replace(/\/\/.*$/gm,"").replace(/\s+/g," ").replace(/\s*([{}();,:])\s*/g,"$1").trim();
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>format(v),"Paste code…");}

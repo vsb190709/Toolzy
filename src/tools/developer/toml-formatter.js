@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>v.split(/\r?\n/).map(x=>x.trim().replace(/\s*=\s*/," = ")).join("\n"),"Paste TOML…");}

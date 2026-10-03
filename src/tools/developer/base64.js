@@ -1,0 +1,3 @@
+import { style, shell, textareaPair, qs, setOutput, button } from "./helpers.js";
+const enc=v=>btoa(unescape(encodeURIComponent(v))), dec=v=>decodeURIComponent(escape(atob(v.trim())));
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-actions">${button("Encode","primary",'data-enc')} ${button("Decode","secondary",'data-dec')}</div>${textareaPair("Text or Base64…")}`);qs(root,"[data-enc]").onclick=()=>setOutput(root,enc(qs(root,"[data-input]").value));qs(root,"[data-dec]").onclick=()=>{try{setOutput(root,dec(qs(root,"[data-input]").value))}catch{setOutput(root,"Invalid Base64",false)}};}

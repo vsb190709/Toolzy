@@ -1,0 +1,2 @@
+import { style, shell, textareaPair, qs, setOutput, button } from "./helpers.js";
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-actions">${button("Encode","primary",'data-enc')} ${button("Decode","secondary",'data-dec')}</div>${textareaPair("Text or URL…")}`);qs(root,"[data-enc]").onclick=()=>setOutput(root,encodeURIComponent(qs(root,"[data-input]").value));qs(root,"[data-dec]").onclick=()=>{try{setOutput(root,decodeURIComponent(qs(root,"[data-input]").value))}catch(e){setOutput(root,e.message,false)}};}

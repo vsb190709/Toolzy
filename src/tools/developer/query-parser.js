@@ -1,0 +1,2 @@
+import { style, bindTextTool } from "./helpers.js";
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>{const u=new URL(v.includes("?")?v:"https://toolzy.local/?"+v);return [...u.searchParams.entries()].map(([k,val])=>`${k} = ${val}`).join("\n")},"Paste a query string or URL…");}

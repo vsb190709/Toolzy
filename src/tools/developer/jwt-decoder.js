@@ -1,0 +1,3 @@
+import { style, bindTextTool } from "./helpers.js";
+const dec=s=>{const p=s.replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(escape(atob(p))))};
+export function mount(root,t){style();bindTextTool(root,t.name,t.description,v=>{const p=v.trim().split(".");if(p.length!==3)throw Error("A JWT must have 3 parts.");return `HEADER\n${JSON.stringify(dec(p[0]),null,2)}\n\nPAYLOAD\n${JSON.stringify(dec(p[1]),null,2)}\n\nSignature: not verified locally.`},"Paste a JWT…");}

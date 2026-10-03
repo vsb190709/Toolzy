@@ -1,0 +1,2 @@
+import { style, shell, textareaPair, qs, setOutput, esc } from "./helpers.js";
+export function mount(root,t){style();root.innerHTML=shell(t.name,t.description,`<div class="dev-actions">${button("Encode","primary",'data-enc')} ${button("Decode","secondary",'data-dec')}</div>${textareaPair("Text or HTML entities…")}`);qs(root,"[data-enc]").onclick=()=>setOutput(root,esc(qs(root,"[data-input]").value));qs(root,"[data-dec]").onclick=()=>{const x=document.createElement("textarea");x.innerHTML=qs(root,"[data-input]").value;setOutput(root,x.value)};}
