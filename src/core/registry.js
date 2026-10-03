@@ -22,7 +22,7 @@ export const categories = [
   ] },
   { id:"image", name:"Image", icon:"image", description:"Fast browser-based image tools" },
   { id:"pdf", name:"PDF", icon:"pdf", description:"PDF utilities" },
-  { id:"documents", name:"Documents", icon:"folder", description:"Files, office and document tools" },
+  { id:"documents", name:"Files", icon:"folder_open", description:"Open and preview local files in your browser" },
   { id:"security", name:"Security", icon:"lock", description:"Defensive security, privacy and integrity tools", subcategories:[
     {id:"access",name:"Passwords & Access",icon:"key"},
     {id:"integrity",name:"Integrity & Hashing",icon:"fingerprint"},
