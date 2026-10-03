@@ -440,3 +440,81 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
   .developer-tool-grid{grid-template-columns:1fr}
   .developer-tool-grid .tool-card{min-height:98px}
 }
+
+
+.developer-tool-page .back{
+  margin:0 0 18px;
+  border:0;
+  background:transparent;
+  color:var(--on-surface-variant);
+  padding:8px 10px;
+  border-radius:999px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.developer-tool-page .back:hover{
+  background:var(--surface-2);
+  color:var(--on-surface);
+}
+.developer-tool-header{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:24px;
+}
+.developer-tool-icon{
+  width:62px;
+  height:62px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:19px;
+  background:var(--primary-container);
+  color:var(--on-primary-container);
+}
+.developer-tool-icon .material-symbols-rounded{font-size:31px}
+.developer-tool-copy{min-width:0}
+.developer-breadcrumb{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:1px 0 6px;
+  color:var(--on-surface-variant);
+  font-size:12px;
+  font-weight:750;
+}
+.developer-breadcrumb span:last-child{color:var(--primary)}
+.developer-tool-copy h1{
+  margin:0 0 7px;
+  font-size:clamp(31px,4vw,46px);
+}
+.developer-tool-copy p{
+  margin:0;
+  max-width:760px;
+  color:var(--on-surface-variant);
+  font-size:15px;
+  line-height:1.55;
+}
+.developer-tool-page .tool-mount{margin-top:0}
+.developer-tool-page .tool-error{
+  padding:28px;
+  border:1px solid var(--error);
+  border-radius:24px;
+  background:var(--error-container);
+  color:var(--on-error-container);
+  text-align:center;
+}
+.developer-tool-page .tool-error .material-symbols-rounded{font-size:34px}
+.developer-tool-page .tool-error h2{margin:10px 0 5px;color:var(--on-error-container)}
+.developer-tool-page .tool-error p{margin:0 0 16px;color:var(--on-error-container)}
+
+@media(max-width:760px){
+  .developer-tool-header{gap:12px;margin-bottom:18px}
+  .developer-tool-icon{width:54px;height:54px;border-radius:17px}
+  .developer-tool-icon .material-symbols-rounded{font-size:27px}
+  .developer-tool-copy h1{font-size:30px}
+  .developer-tool-copy p{font-size:14px}
+}
