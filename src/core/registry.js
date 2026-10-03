@@ -20,9 +20,6 @@ export const categories = [
     {id:"creative",name:"Creative & Voice",icon:"palette"},
     {id:"games",name:"Games & Fun",icon:"sports_esports"}
   ] },
-  { id:"image", name:"Image", icon:"image", description:"Fast browser-based image tools" },
-  { id:"pdf", name:"PDF", icon:"pdf", description:"PDF utilities" },
-  { id:"documents", name:"Files", icon:"folder_open", description:"Open and preview local files in your browser" },
   { id:"security", name:"Security", icon:"lock", description:"Defensive security, privacy and integrity tools", subcategories:[
     {id:"access",name:"Passwords & Access",icon:"key"},
     {id:"integrity",name:"Integrity & Hashing",icon:"fingerprint"},
@@ -30,6 +27,12 @@ export const categories = [
     {id:"inspection",name:"Inspection & Privacy",icon:"policy"},
     {id:"habits",name:"Security Habits",icon:"checklist"}
   ] },
+];
+
+export const products = [
+  { id:"files", name:"Universal File System", icon:"folder_open", description:"Open, inspect and work with files across thousands of formats.", status:"live" },
+  { id:"pdf-editor", name:"PDF Editor", icon:"picture_as_pdf", description:"A full browser PDF workspace for viewing, editing and organizing documents.", status:"planned" },
+  { id:"photo-editor", name:"Photo Editor", icon:"photo_library", description:"A powerful browser photo workspace for adjustments, layers and creative editing.", status:"planned" }
 ];
 
 export const tools = [
