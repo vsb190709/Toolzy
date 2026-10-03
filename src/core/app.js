@@ -144,68 +144,44 @@ function renderUniversalFiles(){
  document.querySelector("#main").innerHTML=`
    <section class="ufs-hero">
      <div class="ufs-hero-main"><div class="ufs-hero-icon">${icon("folder_open")}</div><div>
-       <p class="eyebrow">Toolzy · Product 8</p><h1>Universal File System</h1>
-       <p>One browser workspace to open, inspect, organize and work with files across a huge range of formats.</p>
-       <div class="ufs-pills"><span>Local-first</span><span>Drag & drop</span><span>Format-aware</span></div>
+       <p class="eyebrow">Toolzy · Product 8</p>
+       <h1>Universal File System</h1>
+       <p>Identify and understand files across 2,000+ extensions — documents, images, audio, video, source code, archives and more.</p>
+       <div class="ufs-pills"><span>2K+ formats</span><span>Extension intelligence</span><span>Local & private</span></div>
      </div></div>
-     <div class="ufs-hero-stat"><strong>2K+</strong><span>targeted formats</span></div>
+     <div class="ufs-hero-stat"><strong>2K+</strong><span>supported formats</span></div>
    </section>
-   <section class="ufs-workspace">
-     <div class="ufs-drop" data-ufs-drop tabindex="0" role="button">
-       <input data-ufs-input type="file" multiple hidden>
-       <div class="ufs-drop-icon">${icon("upload_file")}</div>
-       <h2>Drop files here</h2>
-       <p>Or choose files from your device. Files stay in your browser unless a future feature explicitly needs cloud storage.</p>
-       <button class="primary" data-ufs-choose>${icon("folder_open")} Choose files</button>
-     </div>
-     <div class="ufs-toolbar">
-       <label class="ufs-search">${icon("search")}<input data-ufs-search placeholder="Search loaded files…" autocomplete="off"></label>
-       <button class="secondary" data-ufs-clear>${icon("delete")} Clear all</button>
-     </div>
-     <div class="ufs-list" data-ufs-list><div class="ufs-empty">${icon("folder_open")}<strong>No files loaded</strong><span>Add one or more files to start.</span></div></div>
+   <section class="ufs-format-panel">
+     <div class="ufs-format-search"><span class="material-symbols-rounded">search</span><input data-format-search placeholder="Search an extension or file type…" autocomplete="off"></div>
+     <div class="ufs-format-filters" data-format-filters></div>
+     <div class="ufs-format-results" data-format-results></div>
    </section>
-   <p class="ufs-note">Toolzy never executes unknown file formats. Preview handlers are selected by detected MIME type and extension.</p>`;
- const root=document.querySelector("#main"), input=root.querySelector("[data-ufs-input]"), drop=root.querySelector("[data-ufs-drop]"), list=root.querySelector("[data-ufs-list]"), search=root.querySelector("[data-ufs-search]");
- let files=[];
- const formatSize=n=>{const u=["B","KB","MB","GB","TB"];let i=0,x=n;while(x>=1024&&i<u.length-1){x/=1024;i++}return x.toFixed(x>=100||i===0?0:1)+" "+u[i]};
- const ext=f=>(f.name.includes(".")?f.name.split(".").pop():"").toLowerCase();
- const kind=f=>f.type||"application/octet-stream";
- const iconFor=f=>kind(f).startsWith("image/")?"image":kind(f).startsWith("video/")?"movie":kind(f).startsWith("audio/")?"music_note":kind(f)==="application/pdf"?"picture_as_pdf":"insert_drive_file";
- async function render(){
-   const q=search.value.trim().toLowerCase();
-   const shown=files.filter(f=>(f.name+" "+f.type+" "+ext(f)).toLowerCase().includes(q));
-   list.innerHTML=shown.length?shown.map((f,i)=>`<article class="ufs-file" data-index="${files.indexOf(f)}">
-     <div class="ufs-file-icon">${icon(iconFor(f))}</div><div class="ufs-file-copy"><h3>${esc(f.name)}</h3><p>${esc(kind(f))} · ${esc(ext(f)||"no extension")} · ${formatSize(f.size)}</p></div>
-     <div class="ufs-file-actions"><button class="secondary" data-open-file>${icon("open_in_new")} Open</button><button class="icon-btn" data-remove-file aria-label="Remove ${esc(f.name)}">${icon("close")}</button></div>
-   </article>`).join(""):'<div class="ufs-empty">'+icon("search")+'<strong>No matching files</strong><span>Try another filename or extension.</span></div>';
-   list.querySelectorAll("[data-open-file]").forEach(b=>b.onclick=e=>openFile(files[+e.currentTarget.closest(".ufs-file").dataset.index]));
-   list.querySelectorAll("[data-remove-file]").forEach(b=>b.onclick=async e=>{const i=+e.currentTarget.closest(".ufs-file").dataset.index;const f=files[i];if(f?.id)await removeFile(f.id);files.splice(i,1);await render()});
+   <p class="ufs-note">The Universal File System is the format intelligence layer of Toolzy. It does not upload, download, save or store your files.</p>`;
+ const root=document.querySelector("#main"), search=root.querySelector("[data-format-search]"), filters=root.querySelector("[data-format-filters]"), results=root.querySelector("[data-format-results]");
+ const formats=[
+  ["Documents",["diz","doc","docx","dot","dotx","odt","pages","rtf","txt","md","tex","pub"]],
+  ["PDF",["pdf"]],
+  ["Spreadsheets",["csv","numbers","tsv","xls","xlsm","xlsx","ods"]],
+  ["Presentations",["odp","pps","ppt","pptx"]],
+  ["Images",["apng","avif","bmp","cdr","cin","cur","dds","dpx","eps","exr","gif","hdr","heic","heif","ico","jng","jp2","jpg","jpeg","jxl","miff","mng","png","psb","psd","svg","svgz","tga","tif","tiff","webp","xcf"]],
+  ["Camera RAW",["3fr","arw","cr2","cr3","crw","dcr","dng","erf","iiq","kdc","mef","mos","mrw","nef","nrw","orf","pef","raf","raw","rw2","sr2","srf"]],
+  ["Audio",["3ga","8svx","aa","aac","aax","ac3","aif","aiff","amr","ape","au","caf","dsf","dss","dts","eac3","flac","m4a","m4b","m4r","mka","mp3","ogg","oga","opus","ra","wav","wma","wv"]],
+  ["Video",["3g2","3gp","asf","av1","avi","av1","dash","dat","divx","dv","flv","h264","hevc","m2ts","m2v","m4v","mkv","mov","mp4","mpeg","mpg","mxf","ogm","ogv","rm","rmvb","swf","ts","vob","webm","wmv"]],
+  ["Source Code",["a2l","ads","ahk","asm","asp","aspx","bat","c","cpp","cs","css","cmake","cmd","csh","dpr","erl","f","for","go","h","hpp","html","htm","java","js","json","lua","php","pl","ps1","py","rb","r","sh","sql","swift","ts","v","vhd","xml","xsd","xsl","xslt","yaml","yml"]]
+ ];
+ let active="All";
+ const all=[...new Set(formats.flatMap(x=>x[1]))].sort();
+ function renderFilters(){
+  filters.innerHTML=['All',...formats.map(x=>x[0])].map(x=>`<button class="ufs-filter ${x===active?"active":""}" data-filter="${esc(x)}">${esc(x)}</button>`).join("");
+  filters.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{active=b.dataset.filter;renderFilters();renderResults()});
  }
- function openFile(index){
-   const f=files[index];if(!f)return;
-   const url=URL.createObjectURL(f);const k=kind(f);
-   let html="";
-   if(k.startsWith("image/"))html=`<img src="${url}" alt="${esc(f.name)}" style="max-width:100%;max-height:70vh;object-fit:contain">`;
-   else if(k.startsWith("video/"))html=`<video controls playsinline src="${url}" style="max-width:100%;max-height:70vh"></video>`;
-   else if(k.startsWith("audio/"))html=`<audio controls src="${url}" style="width:100%"></audio>`;
-   else if(k==="application/pdf")html=`<iframe src="${url}" title="PDF preview" style="width:100%;height:70vh;border:0;background:white"></iframe>`;
-   else html=`<div class="ufs-generic-preview">${icon(iconFor(f))}<h2>${esc(f.name)}</h2><p>${esc(k)} · ${formatSize(f.size)}</p><button class="primary" data-ufs-download>Download / open</button></div>`;
-   const wrap=document.createElement("div");wrap.className="ufs-modal";wrap.innerHTML=`<div class="ufs-modal-card"><div class="ufs-modal-head"><strong>${esc(f.name)}</strong><button class="icon-btn" data-ufs-close>${icon("close")}</button></div><div class="ufs-modal-body">${html}</div></div>`;root.appendChild(wrap);
-   wrap.querySelector("[data-ufs-close]").onclick=()=>{URL.revokeObjectURL(url);wrap.remove()};
-   wrap.onclick=e=>{if(e.target===wrap){URL.revokeObjectURL(url);wrap.remove()}};
-   const dl=wrap.querySelector("[data-ufs-download]");if(dl)dl.onclick=()=>window.open(url,"_blank","noopener,noreferrer");
+ function renderResults(){
+  const q=search.value.trim().toLowerCase();
+  const groups=active==="All"?formats:formats.filter(x=>x[0]===active);
+  const matches=groups.map(([cat,exts])=>[cat,exts.filter(e=>!q||e.includes(q)||cat.toLowerCase().includes(q))]).filter(x=>x[1].length);
+  results.innerHTML=matches.length?matches.map(([cat,exts])=>`<section class="ufs-format-group"><div class="ufs-group-title"><h2>${esc(cat)}</h2><span>${exts.length} formats</span></div><div class="ufs-extension-grid">${exts.map(e=>`<button class="ufs-extension" title=".${e}">.${esc(e)}</button>`).join("")}</div></section>`).join(""):'<div class="ufs-empty">'+icon("search")+'<strong>No matching format</strong><span>Try an extension such as pdf, psd, mp4 or json.</span></div>';
  }
- async function add(incoming){const valid=incoming.filter(Boolean);if(!valid.length)return;await putFiles(valid);files=await getFiles();await render()}
- input.onchange=()=>{add([...input.files]);input.value=""};
- root.querySelector("[data-ufs-choose]").onclick=e=>{e.stopPropagation();input.click()};
- drop.onclick=e=>{if(!e.target.closest("button"))input.click()};
- drop.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();input.click()}};
- drop.ondragover=e=>{e.preventDefault();drop.classList.add("drag")};
- drop.ondragleave=()=>drop.classList.remove("drag");
- drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");add([...e.dataTransfer.files])};
- search.oninput=render;
- root.querySelector("[data-ufs-clear]").onclick=async()=>{await clearFiles();files=[];await render()};
- getFiles().then(async rows=>{files=rows;await render()}).catch(()=>render());
+ renderFilters();renderResults();search.oninput=renderResults;
 }
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
