@@ -45,8 +45,13 @@ export function renderApp(){
 }
 
 function card(t){
- return `<button class="tool-card" data-tool="${t.id}">
-   <div class="tool-icon">${icon(t.icon, t.name)}</div><div><h3>${t.name}</h3><p>${t.description}</p></div>
+ return `<button class="tool-card" data-tool="${t.id}" aria-label="${escapeHtml(t.name)}">
+   <span class="tool-icon">${icon(t.icon)}</span>
+   <span class="tool-card-copy">
+     <h3>${escapeHtml(t.name)}</h3>
+     <p>${escapeHtml(t.description)}</p>
+   </span>
+   <span class="tool-card-arrow" aria-hidden="true">${icon("arrow")}</span>
  </button>`;
 }
 
