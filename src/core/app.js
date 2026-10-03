@@ -33,14 +33,14 @@ export function renderApp(){
     const state=loadState();
     state.theme=next;
     localStorage.setItem("toolzy-state-v1", JSON.stringify(state));
-    document.querySelector("#themeBtn").textContent=next==="dark"?"☀":"☾";
+    document.querySelector("#themeBtn").innerHTML=icon(next==="dark"?"light_mode":"dark_mode");
     document.querySelector("#themeBtn").setAttribute("aria-label", next==="dark"?"Switch to light mode":"Switch to dark mode");
   };
   const search=document.querySelector("#search");
   search.oninput=()=>renderSearch(search.value);
   applyTheme();
   const initialTheme=document.documentElement.dataset.theme||"light";
-  document.querySelector("#themeBtn").textContent=initialTheme==="dark"?"☀":"☾";
+  document.querySelector("#themeBtn").innerHTML=icon(initialTheme==="dark"?"light_mode":"dark_mode");
   document.querySelector("#themeBtn").setAttribute("aria-label", initialTheme==="dark"?"Switch to light mode":"Switch to dark mode");
 }
 
