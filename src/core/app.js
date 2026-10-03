@@ -101,32 +101,74 @@ function renderHome(){
 
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
- document.title=`${c.name} Tools — Toolzy`;
+ document.title=`undefined Tools — Toolzy`;
+
  if(c.subcategories?.length){
    const groups=c.subcategories.map(sub=>{
      const items=list.filter(t=>t.subcategory===sub.id);
      if(!items.length)return "";
      return `<section class="developer-group">
-       <div class="section-title developer-group-head">
-         <div><p class="eyebrow">${icon(sub.icon)} ${sub.name}</p><h2>${sub.name}</h2></div>
-         <span class="tool-count">${items.length} tools</span>
+       <div class="developer-section-head">
+         <div class="developer-section-title">
+           <span class="developer-section-icon">${icon(sub.icon)}</span>
+           <div class="developer-section-copy">
+             <p class="eyebrow">Developer</p>
+             <h2>${sub.name}</h2>
+             <p class="developer-section-desc">${developerSubDescription(sub.id)}</p>
+           </div>
+         </div>
+         <span class="tool-count"><strong>${items.length}</strong> tools</span>
        </div>
-       <div class="tool-grid">${items.map(card).join("")}</div>
+       <div class="tool-grid developer-tool-grid">${items.map(card).join("")}</div>
      </section>`;
    }).join("");
+
    document.querySelector("#main").innerHTML=`
-     <div class="page-head">
-       <div class="page-art-row">${art("code", c.name)}
-         <div><p class="eyebrow">${icon(c.icon)} ${c.name}</p><h1>${c.name} Tools</h1><p>${c.description}</p></div>
+     <section class="developer-hero">
+       <div class="developer-hero-main">
+         <div class="developer-hero-icon">${icon("code")}</div>
+         <div>
+           <p class="eyebrow">Developer</p>
+           <h1>Developer Tools</h1>
+           <p class="developer-hero-desc">Practical tools for code, data, web work and everyday developer tasks.</p>
+         </div>
        </div>
-     </div>
+       <div class="developer-hero-meta">
+         <div class="developer-stat">
+           <strong>${list.length}</strong>
+           <span>tools</span>
+         </div>
+         <div class="developer-stat">
+           <strong>${c.subcategories.length}</strong>
+           <span>categories</span>
+         </div>
+       </div>
+     </section>
      <div class="developer-groups">${groups}</div>`;
  } else {
    document.querySelector("#main").innerHTML=`
-     <div class="page-head"><div class="page-art-row">${art(({basic:"gear",text:"pencil",calculators:"dice",converters:"arrow-right",developer:"robot",image:"palette",pdf:"scroll",documents:"package",security:"shield-cross"})[c.id]||"sparkle-star", c.name)}<div><p class="eyebrow">${icon(c.icon)} ${c.name}</p><h1>${c.name} Tools</h1><p>${c.description}</p></div></div></div>
+     <div class="page-head">
+       <div class="page-art-row">
+         ${art(({basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",image:"image",pdf:"pdf",documents:"folder",security:"lock"})[c.id]||"build", c.name)}
+         <div><p class="eyebrow">${icon(c.icon)} ${c.name}</p><h1>${c.name} Tools</h1><p>${c.description}</p></div>
+       </div>
+     </div>
      <div class="tool-grid">${list.length?list.map(card).join(""):`<div class='planned'><strong>Planned</strong><p>More ${c.name.toLowerCase()} tools are coming in the next phases.</p></div>`}</div>`;
  }
  bindToolCards();
+}
+
+function developerSubDescription(id){
+ const map={
+   data:"JSON, XML, YAML, CSV and configuration formats.",
+   encoding:"Encode and decode data for common developer workflows.",
+   web:"URLs, headers, tokens, MIME types and browser data.",
+   code:"Format, compare, test and transform source code.",
+   identifiers:"Generate unique IDs and useful test data.",
+   time:"Convert dates, timestamps and scheduling expressions.",
+   hashing:"Create hashes, HMACs and checksums locally."
+ };
+ return map[id]||"Developer utilities for everyday work.";
 }
 async function renderTool(id){
  const t=getTool(id); if(!t)return renderNotFound();
