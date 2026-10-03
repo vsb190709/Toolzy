@@ -1,7 +1,7 @@
 import { categories, tools, products, getCategory, getTool, toolsForCategory } from "./registry.js?v=23";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
-import { putFiles, getFiles, removeFile, clearFiles, workspaceSummary } from "./file-store.js";
+
 import { icon, art } from "./icons.js";
 
 export function renderApp(){
