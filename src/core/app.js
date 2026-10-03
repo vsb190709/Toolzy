@@ -1,4 +1,4 @@
-import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=21";
+import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=22";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 import { icon, art } from "./icons.js";
@@ -124,6 +124,7 @@ function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
  document.title=`${c.name} Tools — Toolzy`;
  if(id==="utilities")return renderUtilitiesCategory(c,list);
+ if(id==="security")return renderSecurityCategory(c,list);
 
  if(c.subcategories?.length){
    const groups=c.subcategories.map(sub=>{
@@ -222,6 +223,45 @@ function renderUtilitiesCategory(c,list){
  main.querySelectorAll("[data-utility-jump]").forEach(btn=>btn.onclick=()=>main.querySelector("#utilities-"+btn.dataset.utilityJump)?.scrollIntoView({behavior:"smooth",block:"start"}));
  bindToolCards();
 }
+function renderSecurityCategory(c,list){
+ const descriptions={
+   access:"Passwords, passphrases, backup codes and account authentication helpers.",
+   integrity:"Hashes and integrity checks for text, files and web assets.",
+   web:"Defensive header builders and web-policy inspection tools.",
+   inspection:"Local inspection helpers for pasted URLs, code and secrets.",
+   habits:"Simple security hygiene you can actually keep up with."
+ };
+ const groups=c.subcategories.map(sub=>{
+   const items=list.filter(t=>t.subcategory===sub.id); if(!items.length)return "";
+   return `<section class="security-group" id="security-${sub.id}">
+     <div class="security-group-head">
+       <div class="security-group-title"><span class="security-group-icon">${icon(sub.icon)}</span><div><p class="eyebrow">Security collection</p><h2>${sub.name}</h2><p>${descriptions[sub.id]||""}</p></div></div>
+       <span class="security-count"><strong>${items.length}</strong> tools</span>
+     </div>
+     <div class="tool-grid security-tool-grid">${items.map(securityCard).join("")}</div>
+   </section>`;
+ }).join("");
+ const jumps=c.subcategories.map(sub=>`<button class="chip" data-security-jump="${sub.id}">${icon(sub.icon)} ${sub.name} · ${list.filter(t=>t.subcategory===sub.id).length}</button>`).join("");
+ document.querySelector("#main").innerHTML=`
+   <section class="security-hero">
+     <div class="security-hero-main"><div class="security-hero-icon">${icon("lock")}</div><div><p class="eyebrow">Toolzy · Security</p><h1>Security tools for<br><span>safer everyday work.</span></h1><p>Local-first utilities for passwords, integrity, web policies, inspection and good security habits.</p><div class="security-hero-pills"><span>${list.length} tools</span><span>Local-first</span><span>No sign-in</span></div></div></div>
+     <div class="security-hero-orb"><span>${icon("shield")}</span><strong>LOCAL</strong></div>
+   </section>
+   <div class="security-jumps">${jumps}</div>
+   <div class="security-groups">${groups}</div>`;
+ const main=document.querySelector("#main");
+ main.querySelectorAll("[data-security-jump]").forEach(b=>b.onclick=()=>main.querySelector("#security-"+b.dataset.securityJump)?.scrollIntoView({behavior:"smooth",block:"start"}));
+ bindToolCards();
+}
+
+function securityCard(t){
+ return `<button class="tool-card security-card" data-tool="${t.id}" aria-label="${escapeHtml(t.name)}">
+   <span class="tool-icon">${icon(t.icon)}</span>
+   <span class="tool-card-copy"><h3>${escapeHtml(t.name)}</h3><p>${escapeHtml(t.description)}</p></span>
+   <span class="tool-card-arrow" aria-hidden="true">${icon("arrow")}</span>
+ </button>`;
+}
+
 function developerSubDescription(id){
  const map={
    data:"JSON, XML, YAML, CSV and configuration formats.",
