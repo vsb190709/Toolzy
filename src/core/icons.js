@@ -45,7 +45,18 @@ const aliases = {
   trash:"delete",
   menu:"menu",
   dark_mode:"dark_mode",
-  light_mode:"light_mode"
+  light_mode:"light_mode",
+  "data-object":"account_tree",
+  "code-block":"integration_instructions",
+  compare:"compare",
+  compress:"compress",
+  info:"info",
+  file:"insert_drive_file",
+  language:"language",
+  key:"key",
+  table:"table_view",
+  schedule:"schedule",
+  shuffle:"shuffle",
 };
 
 function esc(value){
