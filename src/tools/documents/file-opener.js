@@ -1,4 +1,4 @@
-import{style,qs,esc}from'./helpers.js';
+import{style,qs,esc}from'../utilities/helpers.js';
 function size(n){const u=['B','KB','MB','GB','TB'];let i=0,x=n;while(x>=1024&&i<u.length-1){x/=1024;i++}return x.toFixed(x>=100||i===0?0:1)+' '+u[i]}
 function kind(type){if(type.startsWith('image/'))return'image';if(type.startsWith('video/'))return'movie';if(type.startsWith('audio/'))return'music_note';if(type==='application/pdf')return'picture_as_pdf';return'insert_drive_file'}
 function textFile(f){return f.type.startsWith('text/')||/^(txt|md|json|xml|csv|css|js|ts|html|htm|yaml|yml|toml|log|ini|cfg|sh|py|java|c|cpp|h|hpp)$/i.test(f.name.split('.').pop()||'')}
