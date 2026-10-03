@@ -3,6 +3,7 @@ import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 
 import { icon, art } from "./icons.js";
+import { mountPhotoEditor } from "../products/photo-editor.js";
 
 export function renderApp(){
   document.querySelector("#app").innerHTML=`
@@ -137,6 +138,7 @@ function renderProduct(id){
      <h2>${product.name} is part of the Toolzy product suite.</h2>
      <p>This workspace is planned as a dedicated full-featured application, separate from the everyday Tools collection.</p>
    </section>`;
+ if(id==="photo-editor") mountPhotoEditor(document.querySelector("#main"));
 }
 
 function renderCategory(id){
