@@ -1,140 +1,223 @@
-Yep 😎 Let's make it **GitHub-star-worthy** while keeping it clean and not overcomplicated.
-
-```markdown
 # 🛠️ Toolzy
 
-### ⚡ Fast. Simple. Useful.
+> **Useful tools. One place.**
 
-A collection of lightweight browser tools for calculations, text processing, conversions, and developer workflows.
+Toolzy is a lightweight collection of browser-based tools for everyday tasks, calculations, conversions, text processing, and developer workflows.
 
-<p align="center">
-  <a href="https://vsb190709.github.io/Toolzy/">
-    <strong>🚀 Open Toolzy</strong>
-  </a>
-</p>
+🌐 **Live:** https://vsb190709.github.io/toolzy/
 
 ---
 
-## ✨ Why Toolzy?
+## ✨ Features
 
-Toolzy puts a bunch of everyday utilities in one place.
-
-- ⚡ **Fast** — lightweight and quick to use
-- 🔒 **Privacy-friendly** — tools work locally whenever possible
-- 📱 **Responsive** — works on desktop and mobile
-- 🎨 **Clean UI** — simple Material-style interface
-- 🌐 **No account required**
-- 🧩 **Modular** — each tool is maintained separately
+- ⚡ Fast and lightweight
+- 📱 Responsive on desktop and mobile
+- 🎨 Clean Material-style interface
+- 🔒 Privacy-friendly — tools run locally whenever possible
+- 🌐 Works directly in the browser
+- 🧩 Modular tool architecture
+- 🚫 No account required
 
 ---
 
 ## 🧰 Tools
 
-### 🧮 Calculators
-Percentage • Fractions • Average • Discount • Interest • EMI • Probability • Quadratic Solver • Prime Checker • Area & Volume • and more.
+### 🔧 Basic
 
-### 🔤 Text
-Word Counter • Character Counter • Case Converter • Find & Replace • Line Tools • Lorem Ipsum • Markdown • Morse Code • URL Tools • and more.
+Everyday utilities for quick tasks.
+
+- Age Calculator
+- Average Calculator
+- Counter
+- Dice Roller
+- Discount Calculator
+- Fraction Calculator
+- Number Formatter
+- Number to Words
+- Percentage Calculator
+- Random Choice
+- Random Number
+- Ratio Simplifier
+- Roman Numeral Converter
+- Stopwatch
+- Tip Calculator
+
+### 🧮 Calculators
+
+- Area & Volume
+- Compound Interest
+- EMI Calculator
+- GCD & LCM
+- Loan Payment
+- Mean, Median & Mode
+- Percent Change
+- Prime Checker
+- Probability
+- Pythagorean Theorem
+- Quadratic Solver
+- Simple Interest
+- Speed, Distance & Time
 
 ### 🔄 Converters
-Length • Mass • Temperature • Area • Volume • Speed • Time • Data • Energy • Power • Pressure • Number Bases • and more.
 
-### 💻 Developer
+- Angle
+- Area
+- Currency
+- Data
+- Energy
+- Frequency
+- Length
+- Mass
+- Number Base
+- Power
+- Pressure
+- Speed
+- Temperature
+- Time
+- Volume
+
+### 🔤 Text Tools
+
+- Case Converter
+- Character Counter
+- Email Extractor
+- Hashtag Extractor
+- URL Extractor
+- Find & Replace
+- Line Counter
+- Lorem Ipsum Generator
+- Markdown Preview
+- Morse Code
+- Reading Time
+- Remove Blank Lines
+- Remove Duplicate Lines
+- Reverse Text
+- Sentence Counter
+- Slug Generator
+- Sort Lines
+- Trim Lines
+- URL Encoder
+- Whitespace Cleaner
+- Word Counter
+
+### 💻 Developer Tools
 
 #### 📦 Data & Serialization
-JSON Formatter • JSON Validator • JSON Minifier • JSON ↔ YAML • XML • CSV ↔ JSON • TOML • YAML
 
-#### 🔐 Encoding
-Base64 • URL Encoding • HTML Entities • Unicode • Hex • Binary
+- JSON Formatter
+- JSON Validator
+- JSON Minifier
+- JSON ↔ YAML
+- YAML Formatter
+- XML Formatter
+- XML Validator
+- CSV ↔ JSON
+- TOML Formatter
+
+#### 🔐 Encoding & Decoding
+
+- Base64 Encoder / Decoder
+- URL Encoder / Decoder
+- HTML Entity Encoder / Decoder
+- Unicode Converter
+- Hex Encoder / Decoder
+- Binary ↔ Text
 
 #### 🌐 Web
-URL Parser • Query Parser • JWT Decoder • HTTP Status • HTTP Headers • User-Agent • MIME Types • Color Converter
+
+- URL Parser
+- Query String Parser
+- JWT Decoder
+- HTTP Status Code Reference
+- HTTP Header Parser
+- User-Agent Parser
+- MIME Type Lookup
+- Color Converter
 
 #### 💻 Code
-Markdown • HTML • CSS • JavaScript • SQL • Code Diff • Text Diff • Regex Tester
 
-#### 🆔 Identifiers
-UUID • ULID • Nano ID • Random Strings • Test Data
+- Markdown Editor
+- HTML Formatter
+- CSS Formatter
+- JavaScript Formatter
+- JavaScript Minifier
+- SQL Formatter
+- SQL Minifier
+- Code Diff
+- Text Diff
+- Regex Tester
+
+#### 🆔 Identifiers & Data
+
+- UUID Generator
+- ULID Generator
+- Nano ID Generator
+- Random String Generator
+- Test Data Generator
 
 #### ⏱️ Time
-Unix Timestamp • ISO 8601 • Date ↔ Timestamp • Cron Helper
 
-#### #️⃣ Hashing
-Hash Generator • HMAC • Checksums
+- Unix Timestamp Converter
+- ISO 8601 Converter
+- Date ↔ Timestamp
+- Cron Expression Helper
 
-### 🔧 Basic
-Age Calculator • Stopwatch • Counter • Dice Roller • Random Number • Random Choice • Tip Calculator • Number Formatter • Roman Numerals • and more.
+#### #️⃣ Hashing & Checksums
+
+- Hash Generator
+- HMAC Generator
+- Checksum Generator
 
 ---
 
 ## 🎨 Design
 
-Toolzy uses a clean Material-inspired interface with:
+Toolzy uses a clean Material-inspired interface focused on making tools easy to find and easy to use.
 
-- Rounded components
 - Material Symbols
+- Rounded UI components
 - Responsive layouts
-- Dark/light friendly styling
 - Simple navigation
-- Focus on usability
+- Lightweight pages
+- Consistent tool interfaces
 
 ---
 
-## 🛠️ Built With
-
-```text
-HTML
-CSS
-JavaScript
-Material Symbols
-GitHub Pages
-```
-
-No heavy framework required.
-
----
-
-## 📁 Project Structure
+## 🏗️ Project Structure
 
 ```text
 Toolzy/
 ├── assets/
 │   ├── fonts/
 │   └── icons/
-│
 ├── src/
 │   ├── core/
-│   │   ├── app.js
-│   │   ├── config.js
-│   │   ├── icons.js
-│   │   ├── pwa.js
-│   │   ├── registry.js
-│   │   ├── router.js
-│   │   └── storage.js
-│   │
-│   ├── tools/
-│   │   ├── basic/
-│   │   ├── calculators/
-│   │   ├── converters/
-│   │   ├── developer/
-│   │   └── text/
-│   │
-│   └── styles/
-│
+│   ├── styles/
+│   └── tools/
+│       ├── basic/
+│       ├── calculators/
+│       ├── converters/
+│       ├── developer/
+│       └── text/
 ├── index.html
 ├── manifest.webmanifest
+├── robots.txt
+├── sitemap.xml
 └── sw.js
 ```
 
-Each tool is designed as its own module, making the project easier to maintain and expand.
+
+Each tool is maintained as an individual module, making Toolzy easier to maintain and expand.
 
 ---
 
-## 🚀 Live
+## 🛠️ Built With
 
-**Try Toolzy:**
-
-https://vsb190709.github.io/Toolzy/
+- HTML
+- CSS
+- JavaScript
+- Material Symbols
+- GitHub Pages
 
 ---
 
@@ -142,13 +225,15 @@ https://vsb190709.github.io/Toolzy/
 
 Have an idea for a useful tool?
 
-Issues, suggestions, and contributions are welcome.
+Bug reports, suggestions, and contributions are welcome.
+
+When adding a new tool, follow the existing modular structure and keep the UI consistent with Toolzy.
 
 ---
 
 ## 📜 License
 
-See the repository files for licensing and third-party notices.
+See the repository for license information and third-party notices.
 
 ---
 
@@ -158,8 +243,7 @@ See the repository files for licensing and third-party notices.
 
 **Useful tools. One place.**
 
-Made with 💙 and JavaScript.
+Made with ❤️ and JavaScript.
 
 </p>
-```
 
