@@ -1,6 +1,7 @@
 import { categories, tools, products, getCategory, getTool, toolsForCategory } from "./registry.js?v=23";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
+import { putFiles, getFiles, removeFile, clearFiles, workspaceSummary } from "./file-store.js";
 import { icon, art } from "./icons.js";
 
 export function renderApp(){
@@ -170,7 +171,7 @@ function renderUniversalFiles(){
  const ext=f=>(f.name.includes(".")?f.name.split(".").pop():"").toLowerCase();
  const kind=f=>f.type||"application/octet-stream";
  const iconFor=f=>kind(f).startsWith("image/")?"image":kind(f).startsWith("video/")?"movie":kind(f).startsWith("audio/")?"music_note":kind(f)==="application/pdf"?"picture_as_pdf":"insert_drive_file";
- function render(){
+ async function render(){
    const q=search.value.trim().toLowerCase();
    const shown=files.filter(f=>(f.name+" "+f.type+" "+ext(f)).toLowerCase().includes(q));
    list.innerHTML=shown.length?shown.map((f,i)=>`<article class="ufs-file" data-index="${files.indexOf(f)}">
@@ -178,7 +179,7 @@ function renderUniversalFiles(){
      <div class="ufs-file-actions"><button class="secondary" data-open-file>${icon("open_in_new")} Open</button><button class="icon-btn" data-remove-file aria-label="Remove ${esc(f.name)}">${icon("close")}</button></div>
    </article>`).join(""):'<div class="ufs-empty">'+icon("search")+'<strong>No matching files</strong><span>Try another filename or extension.</span></div>';
    list.querySelectorAll("[data-open-file]").forEach(b=>b.onclick=e=>openFile(files[+e.currentTarget.closest(".ufs-file").dataset.index]));
-   list.querySelectorAll("[data-remove-file]").forEach(b=>b.onclick=e=>{files.splice(+e.currentTarget.closest(".ufs-file").dataset.index,1);render()});
+   list.querySelectorAll("[data-remove-file]").forEach(b=>b.onclick=async e=>{const i=+e.currentTarget.closest(".ufs-file").dataset.index;const f=files[i];if(f?.id)await removeFile(f.id);files.splice(i,1);await render()});
  }
  function openFile(index){
    const f=files[index];if(!f)return;
@@ -194,7 +195,7 @@ function renderUniversalFiles(){
    wrap.onclick=e=>{if(e.target===wrap){URL.revokeObjectURL(url);wrap.remove()}};
    const dl=wrap.querySelector("[data-ufs-download]");if(dl)dl.onclick=()=>window.open(url,"_blank","noopener,noreferrer");
  }
- function add(incoming){for(const f of incoming){if(f)files.push(f)}render()}
+ async function add(incoming){const valid=incoming.filter(Boolean);if(!valid.length)return;await putFiles(valid);files=await getFiles();await render()}
  input.onchange=()=>{add([...input.files]);input.value=""};
  root.querySelector("[data-ufs-choose]").onclick=e=>{e.stopPropagation();input.click()};
  drop.onclick=e=>{if(!e.target.closest("button"))input.click()};
@@ -203,7 +204,8 @@ function renderUniversalFiles(){
  drop.ondragleave=()=>drop.classList.remove("drag");
  drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");add([...e.dataTransfer.files])};
  search.oninput=render;
- root.querySelector("[data-ufs-clear]").onclick=()=>{files=[];render()};
+ root.querySelector("[data-ufs-clear]").onclick=async()=>{await clearFiles();files=[];await render()};
+ getFiles().then(async rows=>{files=rows;await render()}).catch(()=>render());
 }
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
