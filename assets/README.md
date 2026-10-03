@@ -1,1 +1,0 @@
-Toolzy visual assets\n\nTypography: uploaded HackerNoon font asset.\nIcons: uploaded HackerNoon Pixel Icon Library assets.\nUI attribution is displayed in the Toolzy footer.\n
