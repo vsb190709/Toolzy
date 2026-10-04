@@ -659,3 +659,28 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
 @supports(padding:max(0px)){
   .bottom-nav{padding-bottom:max(6px,env(safe-area-inset-bottom))}
 }
+
+
+/* Graph Calculator Pro */
+.graph-pro{gap:20px}
+.graph-pro-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.graph-pro-head h2{margin:2px 0 5px;font-size:26px}
+.graph-pro-head .tool-note{max-width:700px}
+.graph-status{padding:7px 11px;border:1px solid var(--outline-variant);border-radius:999px;background:var(--surface-2);font-size:12px;font-weight:750;color:var(--primary);white-space:nowrap}
+.graph-editor{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+.graph-actions{display:flex;gap:9px}
+.graph-actions>*{min-width:92px}
+.graph-pro-canvas{position:relative;min-height:520px}
+.graph-pro-canvas canvas{display:block;width:100%;height:500px;min-width:820px;border-radius:16px}
+.graph-options{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.graph-check{display:inline-flex!important;flex-direction:row!important;align-items:center;gap:7px!important;padding:9px 12px;border:1px solid var(--outline-variant);border-radius:999px;background:var(--surface-2);font-size:13px!important;font-weight:650!important}
+.graph-check input{width:17px!important;min-height:17px!important;margin:0;accent-color:var(--primary)}
+@media(max-width:760px){
+  .graph-pro-head{flex-direction:column;gap:10px}
+  .graph-editor{grid-template-columns:1fr}
+  .graph-actions{width:100%}
+  .graph-actions>*{flex:1}
+  .graph-pro-canvas{min-height:400px;padding:7px}
+  .graph-pro-canvas canvas{height:380px;min-width:760px}
+  .graph-options{gap:7px}
+}
