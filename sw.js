@@ -1,9 +1,9 @@
-const CACHE = "toolzy-shell-v37";
+const CACHE = "toolzy-shell-v38";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
-  "./src/app.js?v=37", "./src/core/app.js", "./src/core/router.js",
-  "./src/core/registry.js?v=37", "./src/core/config.js", "./src/core/storage.js",
-  "./src/core/pwa.js", "./src/core/icons.js", "./src/tools/pdf/studio.js", "./src/styles/main.css?v=37"
+  "./src/app.js?v=38", "./src/core/app.js", "./src/core/router.js",
+  "./src/core/registry.js?v=38", "./src/core/config.js", "./src/core/storage.js",
+  "./src/core/pwa.js", "./src/core/icons.js", "./src/tools/pdf/studio.js", "./src/styles/main.css?v=38"
 ];
 
 self.addEventListener("install", event => {
