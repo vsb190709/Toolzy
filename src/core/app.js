@@ -23,7 +23,6 @@ export function renderApp(){
         <button data-nav="/">${icon("home")}<span>Home</span></button>
         <button data-nav="/basic">${icon("build")}<span>Basic</span></button>
         <button data-nav="/calculators">${icon("calculator")}<span>Calculate</span></button>
-        <button data-nav="/pdf">${icon("pdf")}<span>PDF</span></button>
       </nav>
     </div>`;
   document.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>navigate(b.dataset.nav));
@@ -82,11 +81,9 @@ function renderSearch(q){
 
 export function renderRoute(r){
  const main=document.querySelector("#main"); if(!main)return;
- document.querySelector(".shell")?.classList.toggle("pdf-shell-mode",r.length===1&&r[0]==="pdf");
  if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
- if(r[0]==="pdf")return renderPdfRoute(r.slice(1));
  if(r.length===1 && getCategory(r[0]))return renderCategory(r[0]);
  if(r.length===2 && getCategory(r[0]) && getTool(r[1]))return renderTool(r[1]);
  renderNotFound();
@@ -98,7 +95,7 @@ function renderHome(){
  const recentInitial=recent.slice(0,3);
  document.title="Toolzy — All-in-one toolbox";
  const heroArt = art("build","Toolzy toolbox");
- const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock",pdf:"pdf"};
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
@@ -128,35 +125,9 @@ function renderHome(){
  if(toolsMore) toolsMore.onclick=()=>{const section=toolsMore.closest("section");const grid=section.querySelector(".tool-grid");const loaded=grid.querySelectorAll("[data-tool]").length;if(loaded<99){grid.insertAdjacentHTML("beforeend",tools.slice(loaded,99).map(card).join(""));}else{grid.insertAdjacentHTML("beforeend",tools.slice(loaded).map(card).join(""));toolsMore.closest(".load-more-row").remove();}bindToolCards();};
 }
 
-function renderPdfCategory(){
- document.title="PDF Studio — Toolzy";
- document.querySelector("#main").innerHTML=`
-   <div class="tool-page pdf-product-page">
-     <div id="pdf-studio-mount" class="tool-mount">Loading PDF Studio…</div>
-   </div>`;
- import("../tools/pdf/pdf-suite.js").then(mod=>mod.mount(document.querySelector("#pdf-studio-mount"),{id:"pdf-home"})).catch(error=>{
-   console.error("PDF Studio load error:",error);
-   document.querySelector("#pdf-studio-mount").innerHTML=`<section class="tool-error">${icon("info")}<h2>PDF Studio couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p></section>`;
- });
-}
-function renderPdfRoute(parts){
- document.title="PDF Studio — Toolzy";
- document.querySelector("#main").innerHTML=`<div class="tool-page pdf-product-page"><div id="pdf-studio-mount" class="tool-mount">Loading PDF Studio…</div></div>`;
- import("../tools/pdf/pdf-suite.js").then(mod=>{
-   const mountRoot=document.querySelector("#pdf-studio-mount");
-   const id=parts.length?parts.join("-"):"pdf-home";
-   if(id==="editor") return import("../tools/pdf/studio.js").then(studio=>studio.mount(mountRoot,{id:"pdf-editor"}));
-   return mod.mount(mountRoot,{id});
- }).catch(error=>{
-   console.error("PDF Studio route load error:",error);
-   const mountRoot=document.querySelector("#pdf-studio-mount");
-   if(mountRoot)mountRoot.innerHTML=`<section class="tool-error">${icon("info")}<h2>PDF Studio couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="pdf-route-home">Back to PDF Studio</button></section>`;
-   document.querySelector("#pdf-route-home")?.addEventListener("click",()=>navigate("/pdf"));
- });
-}
+
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
- if(id==="pdf")return renderPdfCategory();
  document.title=`${c.name} Tools — Toolzy`;
  if(id==="utilities")return renderUtilitiesCategory(c,list);
  if(id==="security")return renderSecurityCategory(c,list);
@@ -207,7 +178,7 @@ function renderCategory(id){
    document.querySelector("#main").innerHTML=`
      <div class="page-head">
        <div class="page-art-row">
-         ${art(({basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",image:"image",pdf:"pdf",documents:"folder",security:"lock"})[c.id]||"build", c.name)}
+         ${art(({basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",image:"image" ,documents:"folder",security:"lock"})[c.id]||"build", c.name)}
          <div><p class="eyebrow">${icon(c.icon)} ${c.name}</p><h1>${c.name} Tools</h1><p>${c.description}</p></div>
        </div>
      </div>
