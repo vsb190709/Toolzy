@@ -1068,18 +1068,19 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
 }
 .pdf-help-row strong{font-size:10px}
 .pdf-help-row p{margin:3px 0 0;color:var(--muted);font-size:9px;line-height:1.4}
-@media(max-width:1180px){
-  .pdf-studio-137-layout{grid-template-columns:185px minmax(0,1fr)}
-  .pdf-properties{display:none}
+@media(max-width:900px){
+  .pdf-studio-137-layout{grid-template-columns:170px minmax(360px,1fr) 250px}
+  .pdf-properties{display:block}
+  .pdf-studio-137{overflow:visible}
 }
-@media(max-width:800px){
+@media(max-width:700px){
   .pdf-studio-137{border-radius:16px}
   .pdf-studio-137 .pdf-studio-bar{padding:9px 10px}
   .pdf-studio-actions{gap:5px}
   .pdf-studio-actions button,.pdf-studio-actions label{min-height:34px}
   .pdf-studio-brand-copy small{display:none}
   .pdf-studio-137-layout{grid-template-columns:1fr;min-height:0}
-  .pdf-pages-panel{display:none}
+  .pdf-pages-panel,.pdf-properties{display:none}
   .pdf-edit-toolbar{overflow:auto;justify-content:flex-start}
   .pdf-view-tools{margin-left:auto}
   .pdf-page-nav{justify-content:center}
