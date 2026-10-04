@@ -1,0 +1,42 @@
+name: Toolzy QA
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check every JavaScript file
+        shell: bash
+        run: |
+          set -euo pipefail
+          failed=0
+          while IFS= read -r -d '' file; do
+            if ! node --check "$file"; then
+              failed=1
+            fi
+          done < <(find . -type f -name '*.js' -not -path './node_modules/*' -print0)
+          exit "$failed"
+      - name: Validate registry modules
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {tools} from './src/core/registry.js';
+          const bad=[];
+          for(const t of tools){
+            const path=t.module.replace(/^\.\.\//,'src/');
+            if(!fs.existsSync(path)) bad.push(t.id+': missing '+path);
+          }
+          if(bad.length){console.error(bad.join('\n'));process.exit(1)}
+          console.log('Registry module paths OK:',tools.length);
+          NODE
