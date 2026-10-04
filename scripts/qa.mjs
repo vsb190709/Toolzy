@@ -59,15 +59,15 @@ for(const file of walk(path.join(root,"src")).filter(p=>p.endsWith(".js"))){
     fail("Single-quoted innerHTML contains interpolation: "+rel);
 }
 const mustMatch=[
-  ["index.html",/main\.css\?v=37/],
-  ["index.html",/app\.js\?v=37/],
-  ["404.html",/main\.css\?v=37/],
-  ["404.html",/app\.js\?v=37/],
+  ["index.html",/main\.css\?v=38/],
+  ["index.html",/app\.js\?v=38/],
+  ["404.html",/main\.css\?v=38/],
+  ["404.html",/app\.js\?v=38/],
   ["src/core/app.js",/v1\.37/],
-  ["src/core/pwa.js",/build=37/],
-  ["sw.js",/toolzy-shell-v37/],
-  ["sw.js",/main\.css\?v=37/],
-  ["sw.js",/registry\.js\?v=37/]
+  ["src/core/pwa.js",/build=38/],
+  ["sw.js",/toolzy-shell-v38/],
+  ["sw.js",/main\.css\?v=38/],
+  ["sw.js",/registry\.js\?v=38/]
 ];
 for(const [file,re] of mustMatch){
   const text=fs.readFileSync(path.join(root,file),"utf8");
@@ -80,11 +80,11 @@ for(const file of [...walk(root)].filter(p=>/\.(?:js|html|css|webmanifest)$/.tes
 }
 
 if(errors.length){
-  console.error("\nToolzy 1.37 QA FAILED\n");
+  console.error("\nToolzy 1.38 QA FAILED\n");
   console.error(errors.join("\n\n"));
   process.exit(1);
 }
-console.log("Toolzy 1.37 QA PASS");
+console.log("Toolzy 1.38 QA PASS");
 console.log("JavaScript files checked:",jsFiles.length);
 console.log("Registry tools checked:",tools.length);
 console.log("Modules imported:",tools.length);
