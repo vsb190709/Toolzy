@@ -1,7 +1,7 @@
-const CACHE = "toolzy-shell-v30";
+const CACHE = "toolzy-shell-v31";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
-  "./src/app.js?v=29", "./src/core/app.js", "./src/core/router.js",
+  "./src/app.js?v=30?v=30", "./src/core/app.js", "./src/core/router.js",
   "./src/core/registry.js", "./src/core/config.js", "./src/core/storage.js",
   "./src/core/pwa.js", "./src/core/icons.js", "./src/styles/main.css?v=29"
 ];
