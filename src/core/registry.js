@@ -71,7 +71,6 @@ export const tools = [
   {id:"higher-lower", category:"utilities", subcategory:"games", name:"Higher or Lower", icon:"swap_vert", description:"Predict whether the next number will be higher or lower.", module:"../tools/utilities/higher-lower.js"},
   {id:"reaction-timer", category:"utilities", subcategory:"games", name:"Reaction Timer", icon:"bolt", description:"Measure how quickly you react to the signal.", module:"../tools/utilities/reaction-timer.js"},
   {id:"scoreboard", category:"utilities", subcategory:"games", name:"Scoreboard", icon:"leaderboard", description:"Touch-friendly scoring for games, quizzes and practice.", module:"../tools/utilities/scoreboard.js"},
-  {id:"memory-sequence", category:"utilities", subcategory:"games", name:"Memory Sequence", icon:"psychology", description:"Watch and repeat an ever-growing sequence.", module:"/toolzy/src/tools/utilities/memory-sequence.js"},
   {id:"typing-speed", category:"utilities", subcategory:"games", name:"Typing Speed", icon:"keyboard", description:"Measure WPM and typing accuracy in a 30-second test.", module:"../tools/utilities/typing-speed.js"},
   {id:"simple-interest", category:"calculators", name:"Simple Interest Calculator", icon:"percent", description:"Calculate simple interest and total amount.", module:"../tools/calculators/simple-interest.js"},
   {id:"compound-interest", category:"calculators", name:"Compound Interest Calculator", icon:"percent", description:"Calculate compound growth and interest.", module:"../tools/calculators/compound-interest.js"},
