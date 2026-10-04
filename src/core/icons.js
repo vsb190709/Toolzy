@@ -72,7 +72,7 @@ const aliases = {
   "policy":"policy",
   "checklist":"checklist",
   "date_range":"date_range",
-  "timer":"timer",
+  "timer":"schedule",
   "calendar_month":"calendar_month",
   "work_history":"work_history",
   "view_week":"view_week",
@@ -82,7 +82,7 @@ const aliases = {
   "password":"password",
   "groups":"groups",
   "receipt_long":"receipt_long",
-  "volunteer_activism":"volunteer_activism",
+  "volunteer_activism":"favorite",
   "account_balance_wallet":"account_balance_wallet",
   "local_gas_station":"local_gas_station",
   "school":"school",
@@ -95,9 +95,9 @@ const aliases = {
   "emoji_emotions":"emoji_emotions",
   "volume_up":"volume_up",
   "swap_vert":"swap_vert",
-  "bolt":"bolt",
-  "leaderboard":"leaderboard",
-  "psychology":"psychology",
+  "bolt":"flash_on",
+  "leaderboard":"bar_chart",
+  "psychology":"auto_awesome",
   "vpn_key":"vpn_key",
   "dialpad":"dialpad",
   "confirmation_number":"confirmation_number",
@@ -120,7 +120,7 @@ function esc(value){
 }
 
 export function icon(name,label=""){
-  const glyph = aliases[name] || (typeof name === "string" && /^[a-z0-9_]+$/.test(name) ? name : "help");
+  const glyph = aliases[name] || "extension";
   const aria = label
     ? ` aria-label="${esc(label)}" role="img"`
     : ' aria-hidden="true"';
