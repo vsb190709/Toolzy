@@ -97,6 +97,7 @@ const aliases = {
   "swap_vert":"swap_vert",
   "bolt":"flash_on",
   "leaderboard":"bar_chart",
+  "favorite":"favorite",
   "psychology":"auto_awesome",
   "vpn_key":"vpn_key",
   "dialpad":"dialpad",
