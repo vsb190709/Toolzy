@@ -115,7 +115,7 @@ function esc(value){
 }
 
 export function icon(name,label=""){
-  const glyph = aliases[name] || name;
+  const glyph = aliases[name] || (typeof name === "string" && /^[a-z0-9_]+$/.test(name) ? name : "help");
   const aria = label
     ? ` aria-label="${esc(label)}" role="img"`
     : ' aria-hidden="true"';
