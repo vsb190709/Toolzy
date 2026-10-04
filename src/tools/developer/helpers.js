@@ -1,3 +1,4 @@
+import {icon} from "../../core/icons.js";
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({
   "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 }[c]));
@@ -20,7 +21,7 @@ const shell = (title, desc, body) => `
   <section class="dev-tool">
     <div class="dev-panel">
       <header class="dev-heading">
-        <div class="dev-heading-icon" aria-hidden="true"><span class="material-symbols-rounded">code</span></div>
+        <div class="dev-heading-icon" aria-hidden="true">${icon("code")}</div>
         <div class="dev-heading-copy">
           <div class="dev-kicker">Developer tool</div>
           <h2>${esc(title)}</h2>
