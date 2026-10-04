@@ -63,11 +63,11 @@ const mustMatch=[
   ["index.html",/app\.js\?v=35/],
   ["404.html",/main\.css\?v=35/],
   ["404.html",/app\.js\?v=35/],
-  ["src/core/app.js",/v1\.35/],
-  ["src/core/pwa.js",/build=35/],
-  ["sw.js",/toolzy-shell-v35/],
+  ["src/core/app.js",/v1\.36/],
+  ["src/core/pwa.js",/build=36/],
+  ["sw.js",/toolzy-shell-v36/],
   ["sw.js",/main\.css\?v=35/],
-  ["sw.js",/registry\.js\?v=35/]
+  ["sw.js",/registry\.js\?v=36/]
 ];
 for(const [file,re] of mustMatch){
   const text=fs.readFileSync(path.join(root,file),"utf8");
@@ -80,11 +80,11 @@ for(const file of [...walk(root)].filter(p=>/\.(?:js|html|css|webmanifest)$/.tes
 }
 
 if(errors.length){
-  console.error("\nToolzy 1.35 QA FAILED\n");
+  console.error("\nToolzy 1.36 QA FAILED\n");
   console.error(errors.join("\n\n"));
   process.exit(1);
 }
-console.log("Toolzy 1.35 QA PASS");
+console.log("Toolzy 1.36 QA PASS");
 console.log("JavaScript files checked:",jsFiles.length);
 console.log("Registry tools checked:",tools.length);
 console.log("Modules imported:",tools.length);
