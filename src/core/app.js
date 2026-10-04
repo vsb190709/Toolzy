@@ -18,7 +18,7 @@ export function renderApp(){
           ${categories.map(c=>`<button data-nav="/${c.id}" class="nav-item">${icon(c.icon)} ${c.name}</button>`).join("")}
         </aside>
         <main id="main" tabindex="-1"></main>
-      <div class="footer-credit"><button data-nav="/credits">Credits & open source</button></div></div>
+      <div class="footer-credit"><button data-nav="/credits">Credits & open source</button></div><div class="build-version" aria-label="Toolzy version">v1.31</div></div>
       <nav class="bottom-nav" aria-label="Mobile navigation">
         <button data-nav="/">${icon("home")}<span>Home</span></button>
         <button data-nav="/basic">${icon("build")}<span>Basic</span></button>
