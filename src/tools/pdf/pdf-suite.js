@@ -95,7 +95,9 @@ const GROUPS=[
 export async function mount(root, options){
   var id=(options&&options.id)||"pdf-home";
   if(id==="pdf-home") return mountHome(root);
-  if(id==="edit-pdf"||id==="pdf-annotator") return mountEditor(root,id);
+  if(["edit-pdf","pdf-annotator","pdf-reader","sign-pdf","pdf-form-filler","redact-pdf"].includes(id)){
+    return import("./studio.js").then(function(studio){return studio.mount(root,{id:"pdf-editor"});});
+  }
   return mountTool(root,id);
 }
 function mountHome(root){
