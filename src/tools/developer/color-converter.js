@@ -1,3 +1,4 @@
+import {icon} from "../../core/icons.js";
 import { style, qs, copy, esc } from "./helpers.js";
 
 const clamp=(n,min=0,max=1)=>Math.min(max,Math.max(min,n));
@@ -151,11 +152,11 @@ function renderValues(root,rgb){
   qs(root,"[data-values]").innerHTML=values.map(([k,val])=>`
     <div class="color-value">
       <div class="color-value-copy"><span class="color-value-label">${k}</span><span class="color-value-text">${esc(val)}</span></div>
-      <button class="color-copy" data-copy-value="${esc(val)}" aria-label="Copy ${k}"><span class="material-symbols-rounded">content_copy</span></button>
+      <button class="color-copy" data-copy-value="${esc(val)}" aria-label="Copy ${k}">${icon("copy")}</button>
     </div>`).join("");
   root.querySelectorAll("[data-copy-value]").forEach(btn=>btn.onclick=async()=>{
     const ok=await copy(btn.dataset.copyValue), old=btn.innerHTML;
-    btn.innerHTML=`<span class="material-symbols-rounded">${ok?"check":"close"}</span>`;
+    btn.innerHTML=`${icon(ok?"check":"close")}`;
     setTimeout(()=>btn.innerHTML=old,900);
   });
 }
@@ -166,7 +167,7 @@ export function mount(root,t){
     <section class="dev-tool color-tool">
       <div class="color-picker-card">
         <div class="dev-heading">
-          <div class="dev-heading-icon" aria-hidden="true"><span class="material-symbols-rounded">palette</span></div>
+          <div class="dev-heading-icon" aria-hidden="true">${icon("palette")}</div>
           <div class="dev-heading-copy">
             <div class="dev-kicker">Developer tool</div>
             <h2>${esc(t.name)}</h2>
@@ -196,9 +197,9 @@ export function mount(root,t){
             <output data-hue-value>262°</output>
           </div>
           <div class="color-actions">
-            <button class="primary" data-random><span class="material-symbols-rounded">shuffle</span> Random</button>
-            <button class="secondary" data-native><span class="material-symbols-rounded">colorize</span> Native picker</button>
-            <button class="secondary" data-reset><span class="material-symbols-rounded">restart_alt</span> Reset</button>
+            <button class="primary" data-random>${icon("shuffle")} Random</button>
+            <button class="secondary" data-native>${icon("palette")} Native picker</button>
+            <button class="secondary" data-reset>${icon("refresh")} Reset</button>
             <input data-native-input type="color" value="#6750A4" hidden>
           </div>
         </div>
