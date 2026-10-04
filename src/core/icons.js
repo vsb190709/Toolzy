@@ -34,6 +34,8 @@ const aliases = {
   close:"close",
   download:"download",
   upload:"upload",
+  copy:"content_copy",
+  refresh:"refresh",
   pencil:"edit",
   edit:"edit",
   dice:"casino",
