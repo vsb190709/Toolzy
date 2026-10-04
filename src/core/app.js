@@ -82,6 +82,7 @@ function renderSearch(q){
 
 export function renderRoute(r){
  const main=document.querySelector("#main"); if(!main)return;
+ document.querySelector(".shell")?.classList.toggle("pdf-shell-mode",r.length===1&&r[0]==="pdf");
  if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
