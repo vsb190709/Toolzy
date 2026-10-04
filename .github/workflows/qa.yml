@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: 24
       - name: Run Toolzy 1.37 QA
-        run: node --experimental-default-type=module scripts/qa.mjs
+        run: node scripts/qa.mjs
