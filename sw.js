@@ -1,4 +1,4 @@
-const CACHE = "toolzy-shell-v28";
+const CACHE = "toolzy-shell-v29";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
   "./src/app.js", "./src/core/app.js", "./src/core/router.js",
@@ -21,6 +21,10 @@ self.addEventListener("fetch", event => {
       if (response.ok) {
         const copy = response.clone();
         caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        return response;
+      }
+      if (event.request.mode === "navigate") {
+        return caches.match("./index.html");
       }
       return response;
     }).catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
