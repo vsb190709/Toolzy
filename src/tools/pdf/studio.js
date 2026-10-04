@@ -66,7 +66,10 @@ export async function mount(root){
         <button class="secondary pdf-top-btn" id="pdf-undo" disabled title="Undo">${icon("undo")}<span>Undo</span></button>
         <button class="secondary pdf-top-btn" id="pdf-redo" disabled title="Redo">${icon("redo")}<span>Redo</span></button>
         <label class="secondary pdf-open">${icon("upload")}<span>Open</span><input id="pdf-file" type="file" accept="application/pdf,.pdf" hidden></label>
-        <button class="primary pdf-save" id="pdf-save" disabled>${icon("download")}<span>Save PDF</span></button>
+        <button class="pdf-top-icon" id="pdf-cloud" title="Local document status">${icon("cloud")}</button>
+        <button class="secondary pdf-share" id="pdf-share" title="Share PDF">${icon("share")}<span>Share</span></button>
+        <button class="primary pdf-save" id="pdf-save" disabled>${icon("download")}<span>Download</span></button>
+        <button class="pdf-finish" id="pdf-finish" title="Finish editing">${icon("check")}<span>Finish</span>${icon("arrow-right")}</button>
       </div>
     </header>
 
@@ -94,7 +97,7 @@ export async function mount(root){
         <div class="pdf-edit-toolbar">
           <div class="pdf-tool-strip" role="toolbar" aria-label="PDF editing tools">
             <button class="pdf-mode active" data-pdf-tool="select" title="Select and move annotations">${icon("pencil")}<span>Select</span></button>
-            <button class="pdf-mode" data-pdf-tool="text" title="Click the page and type">${icon("text")}<span>Text</span></button>
+            <button class="pdf-mode" data-pdf-tool="text" title="Click the page and type">${icon("text")}<span>Edit Text</span></button>
             <button class="pdf-mode" data-pdf-tool="highlight" title="Drag across an area to highlight">${icon("highlight")}<span>Highlight</span></button>
             <button class="pdf-mode" data-pdf-tool="rectangle" title="Draw a rectangle">${icon("rectangle")}<span>Shape</span></button>
             <button class="pdf-mode" data-pdf-tool="draw" title="Draw freehand">${icon("draw")}<span>Draw</span></button>
@@ -196,6 +199,8 @@ export async function mount(root){
   $("#pdf-exit").addEventListener("click",()=>navigate("/"));
   $("#pdf-rail-home")?.addEventListener("click",()=>navigate("/"));
   $("#pdf-finish")?.addEventListener("click",()=>navigate("/"));
+  $("#pdf-cloud")?.addEventListener("click",()=>{pageStatus.textContent=sourceBytes?"PDF is kept locally in this browser.":"No PDF is open.";});
+  $("#pdf-properties-close")?.addEventListener("click",()=>{root.classList.remove("pdf-has-selection");});
   $("#pdf-share")?.addEventListener("click",async()=>{
     if(navigator.share){try{await navigator.share({title:sourceName,text:"PDF edited in Toolzy PDF Studio"});return;}catch{}}
     pageStatus.textContent="Sharing is available when the browser supports it.";
@@ -325,6 +330,7 @@ export async function mount(root){
   function syncSelectionPanel(){
     const a=ready()?(annotations[pageIndex]||[])[selectedIndex]:null;
     const has=!!a;
+    root.classList.toggle("pdf-has-selection",has);
     selectionEmpty.hidden=has;
     selectionControls.hidden=!has;
     selectionLabel.textContent=has?`${a.type}`:"Nothing selected";
