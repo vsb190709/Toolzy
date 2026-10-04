@@ -2,6 +2,14 @@ export const categories = [
   { id:"basic", name:"Basic", icon:"build", description:"Everyday quick tools, made fast" },
   { id:"text", name:"Text", icon:"text", description:"Write, clean & transform text" },
   { id:"calculators", name:"Calculators", icon:"calculator", description:"Math and everyday calculations" },
+  { id:"maths", name:"Maths", icon:"calculator", description:"JEE-ready mathematics tools, formulas and visual calculators", subcategories:[
+    {id:"algebra",name:"Algebra",icon:"calculate"},
+    {id:"trigonometry",name:"Trigonometry",icon:"show_chart"},
+    {id:"coordinate",name:"Coordinate Geometry",icon:"show_chart"},
+    {id:"vectors",name:"Vectors & 3D",icon:"show_chart"},
+    {id:"calculus",name:"Calculus",icon:"calculate"},
+    {id:"probability",name:"Probability & Statistics",icon:"percent"}
+  ] },
   { id:"converters", name:"Converters", icon:"swap", description:"Convert units and formats" },
   { id:"developer", name:"Developer", icon:"code", description:"Tools for code, data and web work", subcategories:[
     {id:"data",name:"Data & Serialization",icon:"data-object"},
