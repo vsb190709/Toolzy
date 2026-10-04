@@ -1118,3 +1118,262 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
   }
 }
 
+
+
+/* PDF Studio 1.37 full-screen redesign */
+body:has(.pdf-shell-mode){background:#17151b}
+.pdf-shell-mode .topbar,
+.pdf-shell-mode .sidebar,
+.pdf-shell-mode .footer-credit,
+.pdf-shell-mode .build-version,
+.pdf-shell-mode .bottom-nav{display:none!important}
+.pdf-shell-mode .layout{display:block;min-height:100vh}
+.pdf-shell-mode #main{
+  width:100%;max-width:none;
+  min-height:100vh;
+  padding:0;
+  margin:0;
+}
+.pdf-shell-mode .pdf-product-page{max-width:none;margin:0;padding:0}
+.pdf-shell-mode .tool-page>.back{display:none}
+.pdf-studio-137{
+  width:100%;
+  height:100vh;
+  min-height:620px;
+  margin:0;
+  border:0;
+  border-radius:0;
+  background:#17151b;
+  color:#f4f0f7;
+  box-shadow:none;
+  display:grid;
+  grid-template-rows:60px 1fr;
+  overflow:hidden;
+}
+.pdf-studio-137 .pdf-studio-bar{
+  padding:0 18px;
+  min-height:60px;
+  border-bottom:1px solid #302c34;
+  background:#1e1b22;
+}
+.pdf-studio-137 .pdf-studio-brand{gap:10px}
+.pdf-exit{
+  width:34px;height:34px;display:grid;place-items:center;
+  padding:0;border:0;border-radius:9px;
+  background:#29252e;color:#cfc9d6;
+}
+.pdf-exit:hover{background:#35303c;color:#fff}
+.pdf-studio-137 .pdf-studio-icon{
+  width:34px;height:34px;border-radius:9px;
+  background:#8b6bd1;color:#fff;
+}
+.pdf-studio-137 .pdf-studio-brand-row strong{color:#f7f3fb;font-size:14px}
+.pdf-studio-137 .pdf-studio-brand-copy small{color:#9e97a7}
+.pdf-studio-137 .pdf-studio-actions{gap:6px}
+.pdf-studio-137 .pdf-studio-actions .secondary,
+.pdf-studio-137 .pdf-studio-actions .primary{
+  min-height:36px;height:36px;padding:0 12px;border-radius:9px;
+  font-size:12px;
+}
+.pdf-studio-137 .pdf-studio-actions .secondary{border-color:#4a4450;background:#25212a;color:#eee9f2}
+.pdf-studio-137 .pdf-studio-actions .secondary:hover{background:#302b36}
+.pdf-studio-137 .pdf-studio-actions .primary{background:#b99be9;color:#24172f;box-shadow:none}
+.pdf-studio-137 .pdf-studio-actions .primary:hover{background:#c5aaeF}
+.pdf-studio-137-layout{
+  display:grid!important;
+  grid-template-columns:180px minmax(0,1fr) 290px!important;
+  grid-template-rows:1fr!important;
+  min-height:0!important;
+  height:auto!important;
+  overflow:hidden;
+  background:#151319;
+}
+.pdf-pages-panel{
+  min-height:0!important;
+  padding:12px 10px 10px!important;
+  border-right:1px solid #302c34!important;
+  background:#1b181f!important;
+}
+.pdf-pages-head{
+  color:#f4eff7;
+  padding:4px 2px 10px!important;
+}
+.pdf-pages-head small{color:#918b99}
+.pdf-pages-panel .pdf-page-actions{grid-template-columns:1fr 1fr;margin-bottom:10px}
+.pdf-pages-panel .pdf-page-actions button{
+  min-height:32px;padding:0 7px;border-radius:8px;
+  background:#27232b;color:#e7e0ed;border-color:#45404a;
+  font-size:10px;
+}
+.pdf-thumb-list{
+  padding:2px 1px 8px;
+  background:#17151b;
+  border-radius:10px;
+}
+.pdf-thumb{
+  margin:0 0 7px;
+  padding:6px;
+  border-radius:9px;
+  background:transparent;
+}
+.pdf-thumb:hover{background:#26222a}
+.pdf-thumb.active{
+  background:#2a2630;
+  border-color:#6e559d;
+  box-shadow:0 0 0 1px #6e559d;
+}
+.pdf-thumb-frame{min-height:104px;background:#ded9e2;border-color:#3c3741}
+.pdf-thumb>span:last-child{color:#9d96a6;padding-top:4px}
+.pdf-panel-bottom{padding-top:7px}
+.pdf-panel-bottom .icon-btn{
+  min-height:32px;background:#25212a;border-color:#443f49;color:#d7d0dc;
+}
+.pdf-workspace{
+  min-width:0!important;min-height:0!important;
+  display:grid!important;
+  grid-template-rows:50px 44px 1fr!important;
+  background:#111015!important;
+}
+.pdf-edit-toolbar{
+  min-height:50px!important;
+  height:50px!important;
+  padding:0 12px!important;
+  background:#1a171e!important;
+  border-bottom:1px solid #302c34!important;
+}
+.pdf-mode{
+  min-height:34px!important;
+  padding:0 10px!important;
+  border-radius:8px!important;
+  color:#a9a1b0!important;
+}
+.pdf-mode:hover{background:#27232c!important;color:#e6e0eb!important}
+.pdf-mode.active{background:#312845!important;color:#d9c7f7!important;border-color:#57447a!important}
+.pdf-mode .material-symbols-rounded{font-size:17px}
+.pdf-view-tools{border-left:1px solid #36313a!important}
+.pdf-edit-toolbar .icon-btn{
+  width:32px;height:32px;padding:0;
+  background:#242029;color:#ddd6e4;border-color:#44404a;
+}
+.pdf-edit-toolbar .icon-btn:hover{background:#2e2934}
+.pdf-edit-toolbar #pdf-zoom-label{color:#c3bccb;font-size:11px;min-width:38px;text-align:center}
+.pdf-edit-toolbar .secondary.compact{
+  min-height:32px;height:32px;padding:0 9px;border-radius:8px;
+  background:#242029;border-color:#44404a;color:#ddd6e4;
+}
+.pdf-page-nav{
+  min-height:44px!important;height:44px!important;
+  padding:0 12px!important;
+  background:#17141a!important;
+  border-bottom:1px solid #302c34!important;
+}
+.pdf-page-control input{
+  min-height:30px!important;height:30px!important;
+  background:#242029!important;color:#f0ebf4!important;border:1px solid #48424d!important;
+}
+.pdf-page-control span{color:#8f8996}
+.pdf-page-status{color:#9b94a3!important}
+.pdf-page-nav-actions .secondary.compact{
+  min-height:32px;height:32px;padding:0 10px;border-radius:8px;
+  background:#28232f;border-color:#50465f;color:#d8c9ef;
+}
+.pdf-stage{
+  min-height:0!important;
+  height:auto!important;
+  padding:28px!important;
+  overflow:auto!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(106,82,149,.11),transparent 34%),
+    #111015!important;
+}
+.pdf-canvas-wrap{
+  margin:0 auto!important;
+  flex:none!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.45)!important;
+}
+.pdf-properties{
+  min-height:0!important;
+  overflow:auto!important;
+  border-left:1px solid #302c34!important;
+  background:#1b181f!important;
+  color:#eee8f1;
+}
+.pdf-properties-head{
+  position:sticky;top:0;z-index:2;
+  background:#1b181f!important;
+  padding:14px 15px 12px!important;
+  border-bottom:1px solid #302c34!important;
+}
+.pdf-properties-head h2{color:#f3eef5}
+.pdf-properties .eyebrow{color:#a38bc9}
+.pdf-live-badge{background:#2d253a;color:#cdb8ec}
+.pdf-prop-card{
+  padding:13px 14px!important;
+  border-bottom:1px solid #302c34!important;
+  background:#1b181f!important;
+}
+.pdf-text-card{
+  background:#201c25!important;
+}
+.pdf-prop-title strong{color:#f3eef5}
+.pdf-prop-title span{color:#8f8897}
+.pdf-field>span{color:#9a929f!important}
+.pdf-field input,.pdf-field select,.pdf-field textarea{
+  background:#242029!important;color:#f1ebf4!important;
+  border-color:#4a4450!important;
+}
+.pdf-field input:focus,.pdf-field select:focus,.pdf-field textarea:focus{
+  border-color:#9472cf!important;
+  box-shadow:0 0 0 3px rgba(148,114,207,.18)!important;
+}
+.pdf-wide.secondary{
+  min-height:35px!important;height:35px!important;
+  border-radius:8px!important;
+  background:#26212b!important;border-color:#48414e!important;color:#eee7f1!important;
+}
+.pdf-wide.secondary:hover{background:#302936!important}
+.pdf-inline-tip{
+  background:#29213a!important;color:#aaa1b0!important;
+  border:1px solid #493b5f;
+}
+.pdf-selection-empty{
+  background:#211d25!important;border-color:#403944!important;color:#948d9c!important;
+}
+.pdf-page-stat{border-color:#302c34!important}
+.pdf-help-card{background:#18161c!important}
+.pdf-help-key{background:#28232d!important;color:#c5b0e7!important}
+.pdf-help-row p{color:#918b98!important}
+.pdf-text-editor{
+  background:#201c24!important;
+  border-color:#9b79d9!important;
+  box-shadow:0 16px 50px rgba(0,0,0,.45)!important;
+}
+.pdf-text-editor textarea{
+  background:#151219!important;color:#f3edf6!important;
+  border-color:#4c4652!important;
+}
+.pdf-text-editor textarea:focus{border-color:#a082da!important}
+.pdf-welcome{color:#eee7f1}
+.pdf-welcome h2{color:#f3eef6;font-size:26px}
+.pdf-welcome p{color:#a9a1af}
+.pdf-welcome-pills span{background:#24202a;color:#aaa1b0}
+@media(max-width:1100px){
+ .pdf-studio-137-layout{grid-template-columns:165px minmax(0,1fr)!important}
+ .pdf-properties{display:none}
+}
+@media(max-width:760px){
+ .pdf-studio-137{height:100dvh;min-height:0}
+ .pdf-studio-137 .pdf-studio-bar{padding:0 10px}
+ .pdf-studio-137 .pdf-studio-brand-copy{display:none}
+ .pdf-studio-137 .pdf-studio-actions span{display:none}
+ .pdf-studio-137-layout{grid-template-columns:1fr!important}
+ .pdf-pages-panel{display:none}
+ .pdf-edit-toolbar{overflow:auto}
+ .pdf-view-tools{margin-left:auto}
+ .pdf-mode{padding:0 8px!important}
+ .pdf-mode span{display:none}
+ .pdf-stage{padding:16px 10px!important}
+}
+
