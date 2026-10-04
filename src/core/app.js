@@ -127,20 +127,24 @@ function renderHome(){
 }
 
 function renderPdfCategory(){
- document.title="PDF Editor — Toolzy";
+ document.title="PDF Studio — Toolzy";
  document.querySelector("#main").innerHTML=`
-   <section class="product-hero">
-     <div><p class="eyebrow">Toolzy · PDF</p><h1>PDF Editor</h1><p>View, edit and organize PDF documents in a practical browser workspace.</p></div>
-     <span class="product-status">Coming next</span>
-   </section>
-   <section class="product-placeholder">
-     <div class="product-placeholder-icon">${icon("picture_as_pdf")}</div>
-     <h2>PDF Editor</h2>
-     <p>A dedicated PDF workspace inspired by practical PDF suites like iLovePDF and PDF24.</p>
-     <div class="hero-actions"><button class="primary" disabled>PDF Editor is coming next</button></div>
-   </section>`;
+   <div class="tool-page pdf-product-page">
+     <button class="back" id="pdf-back">${icon("arrow-left")} Back to Home</button>
+     <div id="pdf-studio-mount" class="tool-mount">Loading PDF Studio…</div>
+   </div>`;
+ document.querySelector("#pdf-back").onclick=()=>navigate("/");
+ import("../tools/pdf/studio.js").then(mod=>{
+   const mountRoot=document.querySelector("#pdf-studio-mount");
+   return mod.mount(mountRoot,{id:"pdf",name:"PDF Studio"});
+ }).then(()=>{
+   const mountRoot=document.querySelector("#pdf-studio-mount");
+   document.querySelector("#main")._toolCleanup=typeof mountRoot._cleanup==="function"?mountRoot._cleanup:null;
+ }).catch(error=>{
+   console.error("PDF Studio load error:",error);
+   document.querySelector("#pdf-studio-mount").innerHTML=`<section class="tool-error">${icon("info")}<h2>PDF Studio couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p></section>`;
+ });
 }
-
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
  if(id==="pdf")return renderPdfCategory();
