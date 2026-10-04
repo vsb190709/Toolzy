@@ -344,7 +344,7 @@ function renderCredits(){
      <section class="credit-card"><div class="credit-art">${art("pixel-crown-sparkles","HackerNoon")}</div><div><h2>HackerNoon Pixel Icons</h2><p>Pixel icon resources used as part of Toolzy's visual system.</p><a href="https://github.com/hackernoon/pixel-icon-library" target="_blank" rel="noreferrer">Pixel Icon Library ${icon("arrow")}</a></div></section>
      <section class="credit-card"><div class="credit-art">${art("pencil","HackerNoon")}</div><div><h2>HackerNoon Font</h2><p>HackerNoon pixel typography is bundled locally for the Toolzy interface.</p><a href="https://brand.hackernoon.com/" target="_blank" rel="noreferrer">HackerNoon brand resources ${icon("arrow")}</a></div></section>
    </div>
-   <div class="credits-note"><strong>Third-party resources</strong><p>Toolzy keeps attribution on this dedicated page while following the applicable licenses for bundled assets.</p></div>`;
+   <div class="credits-note"><strong>Toolzy License — MIT</strong><p>Toolzy is released under the MIT License. You can use, copy, modify, merge, publish, distribute, sublicense, and sell copies of Toolzy, subject to the license terms.</p><p><a href="https://github.com/vsb190709/toolzy/blob/main/LICENSE" target="_blank" rel="noreferrer">Read the full MIT License ${icon("arrow")}</a></p></div><div class="credits-note"><strong>Third-party resources</strong><p>Toolzy keeps attribution on this dedicated page while following the applicable licenses for bundled assets.</p></div>`;
 }
 
 function renderNotFound(){document.querySelector("#main").innerHTML=`<div class="empty"><h1>404</h1><p>This Toolzy page doesn't exist yet.</p><button class="primary" data-nav="/">Go home</button></div>`;bindNav()}
