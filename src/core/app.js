@@ -8,7 +8,7 @@ export function renderApp(){
   document.querySelector("#app").innerHTML=`
     <div class="shell">
       <header class="topbar">
-        <button class="brand" data-nav="/"><img class="brand-logo" src="./assets/icons/logo.svg" alt=""><span>Toolzy</span></button>
+        <button class="brand" data-nav="/"><img class="brand-logo" src="/toolzy/assets/icons/logo.svg" alt=""><span>Toolzy</span></button>
         <label class="search"><span class="sr-only">Search tools</span><input id="search" placeholder="Search tools…" autocomplete="off"></label>
         <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
       </header>
@@ -324,7 +324,7 @@ async function renderTool(id){
    </div>`;
  document.querySelector("#back").onclick=()=>navigate("/"+t.category);
  try{
-   const mod=await import(t.module);
+   const mod=await import(new URL(t.module, import.meta.url).href);
    if(typeof mod.mount!=="function")throw new Error("Tool module does not export mount().");
    const mountRoot=document.querySelector("#tool-mount");
    await mod.mount(mountRoot, t);
