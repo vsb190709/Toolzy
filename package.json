@@ -1,0 +1,8 @@
+{
+  "name": "toolzy",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}
