@@ -27,12 +27,10 @@ export const categories = [
     {id:"inspection",name:"Inspection & Privacy",icon:"policy"},
     {id:"habits",name:"Security Habits",icon:"checklist"}
   ] },
+,
+  { id:"pdf", name:"PDF Editor", icon:"picture_as_pdf", description:"View, edit and organize PDF documents", kind:"product" }
 ];
 
-export const products = [
-  { id:"pdf-editor", name:"PDF Editor", icon:"picture_as_pdf", description:"A full browser PDF workspace for viewing, editing and organizing documents.", status:"planned" },
-  { id:"photo-editor", name:"Photo Editor", icon:"photo_library", description:"A powerful browser photo workspace for adjustments, layers and creative editing.", status:"planned" }
-];
 
 export const tools = [
   {id:"world-clock", category:"utilities", subcategory:"time", name:"World Clock", icon:"schedule", description:"Live clocks for popular cities with automatic updates.", module:"../tools/utilities/world-clock.js"},
