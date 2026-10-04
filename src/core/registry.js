@@ -27,7 +27,6 @@ export const categories = [
     {id:"inspection",name:"Inspection & Privacy",icon:"policy"},
     {id:"habits",name:"Security Habits",icon:"checklist"}
   ] },
-  { id:"pdf", name:"PDF Editor", icon:"picture_as_pdf", description:"View, edit and organize PDF documents", kind:"product" }
 ];
 
 
