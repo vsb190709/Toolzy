@@ -63,7 +63,7 @@ const mustMatch=[
   ["index.html",/app\.js\?v=37/],
   ["404.html",/main\.css\?v=37/],
   ["404.html",/app\.js\?v=37/],
-  ["src/core/app.js",/v1\.36/],
+  ["src/core/app.js",/v1\.37/],
   ["src/core/pwa.js",/build=37/],
   ["sw.js",/toolzy-shell-v37/],
   ["sw.js",/main\.css\?v=37/],
