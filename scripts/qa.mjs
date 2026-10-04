@@ -59,14 +59,14 @@ for(const file of walk(path.join(root,"src")).filter(p=>p.endsWith(".js"))){
     fail("Single-quoted innerHTML contains interpolation: "+rel);
 }
 const mustMatch=[
-  ["index.html",/main\.css\?v=35/],
-  ["index.html",/app\.js\?v=35/],
-  ["404.html",/main\.css\?v=35/],
-  ["404.html",/app\.js\?v=35/],
+  ["index.html",/main\.css\?v=36/],
+  ["index.html",/app\.js\?v=36/],
+  ["404.html",/main\.css\?v=36/],
+  ["404.html",/app\.js\?v=36/],
   ["src/core/app.js",/v1\.36/],
   ["src/core/pwa.js",/build=36/],
   ["sw.js",/toolzy-shell-v36/],
-  ["sw.js",/main\.css\?v=35/],
+  ["sw.js",/main\.css\?v=36/],
   ["sw.js",/registry\.js\?v=36/]
 ];
 for(const [file,re] of mustMatch){
