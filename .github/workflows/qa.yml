@@ -11,9 +11,9 @@ jobs:
   qa:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Run Toolzy 1.35 QA
+      - name: Run Toolzy 1.36 QA
         run: node --experimental-default-type=module scripts/qa.mjs
