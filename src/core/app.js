@@ -8,7 +8,7 @@ export function renderApp(){
   document.querySelector("#app").innerHTML=`
     <div class="shell">
       <header class="topbar">
-        <button class="brand" data-nav="/">${icon("build")}<span>Toolzy</span></button>
+        <button class="brand" data-nav="/"><img class="brand-logo" src="./assets/icons/logo.svg" alt=""><span>Toolzy</span></button>
         <label class="search"><span class="sr-only">Search tools</span><input id="search" placeholder="Search tools…" autocomplete="off"></label>
         <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
       </header>
