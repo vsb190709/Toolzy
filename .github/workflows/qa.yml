@@ -14,6 +14,6 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
-      - name: Run Toolzy 1.36 QA
+          node-version: 24
+      - name: Run Toolzy 1.37 QA
         run: node --experimental-default-type=module scripts/qa.mjs
