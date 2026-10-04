@@ -628,3 +628,34 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
 .brand-logo{width:34px;height:34px;display:block;border-radius:10px;flex:none}
 
 .build-version{position:fixed;right:10px;bottom:8px;z-index:1000;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--on-surface-variant);opacity:.55;pointer-events:none;user-select:none}
+
+
+/* Toolzy 1.32 mobile hardening */
+@media(max-width:760px){
+  html,body{overflow-x:hidden}
+  .topbar{padding-left:10px;padding-right:10px}
+  .brand{padding:8px 7px;gap:7px;font-size:18px}
+  .brand-logo{width:32px;height:32px}
+  .theme-btn{width:42px;height:42px}
+  #main{padding-left:14px;padding-right:14px;padding-bottom:112px}
+  .hero-copy>p:not(.eyebrow){font-size:15px;line-height:1.55}
+  .hero h1{font-size:clamp(31px,9vw,42px)}
+  .hero-art{height:170px}
+  .category-card{min-height:150px;padding:17px}
+  .tool-card{min-height:104px;padding:14px}
+  .tool-icon{width:42px;height:42px;border-radius:13px}
+  .tool-card h3{font-size:15px}
+  .tool-card p{font-size:12px}
+  .page-art-row{align-items:flex-start;gap:12px}
+  .material-page-icon{width:54px;height:54px;border-radius:17px}
+  .tool-page{width:100%}
+  .tool-page h1{font-size:clamp(29px,8vw,40px)}
+  .tool-form{padding:16px}
+  .actions{width:100%}
+  .actions .primary,.actions .secondary{flex:1 1 140px}
+  .bottom-nav{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));height:64px}
+  .build-version{right:7px;bottom:78px;font-size:9px}
+}
+@supports(padding:max(0px)){
+  .bottom-nav{padding-bottom:max(6px,env(safe-area-inset-bottom))}
+}
