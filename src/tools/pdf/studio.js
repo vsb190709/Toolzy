@@ -42,6 +42,17 @@ export async function mount(root){
 
   root.innerHTML=`
   <section class="pdf-studio pdf-studio-137">
+<aside class="pdf-app-rail" aria-label="PDF tools">
+  <button class="pdf-rail-brand" id="pdf-rail-home" title="Back to Toolzy">${icon("pdf")}</button>
+  <button class="pdf-rail-item" data-pdf-panel="compress" title="Compress">${icon("compress")}<span>Compress</span></button>
+  <button class="pdf-rail-item" data-pdf-panel="convert" title="Convert">${icon("swap")}<span>Convert</span></button>
+  <button class="pdf-rail-item" data-pdf-panel="organize" title="Organize">${icon("layers")}<span>Organize</span></button>
+  <button class="pdf-rail-item active" data-pdf-panel="edit" title="Edit">${icon("pencil")}<span>Edit</span></button>
+  <button class="pdf-rail-item" data-pdf-panel="sign" title="Sign">${icon("edit")}<span>Sign</span></button>
+  <button class="pdf-rail-item" data-pdf-panel="ai" title="AI PDF">${icon("auto_awesome")}<span>AI PDF</span></button>
+  <span class="pdf-rail-spacer"></span>
+  <button class="pdf-rail-item" data-pdf-panel="more" title="More">${icon("more")}<span>More</span></button>
+</aside>
     <header class="pdf-studio-bar">
       <div class="pdf-studio-brand">
         <button class="pdf-exit" id="pdf-exit" title="Back to Toolzy">${icon("arrow-left")}</button>
@@ -183,6 +194,19 @@ export async function mount(root){
 
   const $=s=>root.querySelector(s);
   $("#pdf-exit").addEventListener("click",()=>navigate("/"));
+  $("#pdf-rail-home")?.addEventListener("click",()=>navigate("/"));
+  $("#pdf-finish")?.addEventListener("click",()=>navigate("/"));
+  $("#pdf-share")?.addEventListener("click",async()=>{
+    if(navigator.share){try{await navigator.share({title:sourceName,text:"PDF edited in Toolzy PDF Studio"});return;}catch{}}
+    pageStatus.textContent="Sharing is available when the browser supports it.";
+  });
+  root.querySelectorAll("[data-pdf-panel]").forEach(btn=>btn.addEventListener("click",()=>{
+    root.querySelectorAll("[data-pdf-panel]").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    const name=btn.dataset.pdfPanel;
+    pageStatus.textContent=name==="edit"?"Editing tools ready":`${name[0].toUpperCase()+name.slice(1)} tools are next in PDF Studio.`;
+  }));
+
   const fileInput=$("#pdf-file");
   const emptyInput=$("#pdf-file-empty");
   const stage=$("#pdf-stage");
