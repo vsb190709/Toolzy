@@ -626,3 +626,5 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
 .load-more-row{display:flex;justify-content:center;margin:18px 0 4px}.load-more-row .secondary{min-width:140px}
 
 .brand-logo{width:34px;height:34px;display:block;border-radius:10px;flex:none}
+
+.build-version{position:fixed;right:10px;bottom:8px;z-index:1000;font-size:10px;font-weight:600;letter-spacing:.04em;color:var(--on-surface-variant);opacity:.55;pointer-events:none;user-select:none}
