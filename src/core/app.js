@@ -1,4 +1,4 @@
-import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=34";
+import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=35";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 
@@ -331,7 +331,7 @@ async function renderTool(id){
    document.querySelector("#main")._toolCleanup=typeof mountRoot._cleanup==="function"?mountRoot._cleanup:null;
  }catch(error){
    console.error("Tool load error:", error);
-   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error"><span class="material-symbols-rounded">error</span><h2>Tool couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
+   document.querySelector("#tool-mount").innerHTML=`<section class="tool-error">${icon("info")}<h2>Tool couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="retry-tool">Try again</button></section>`;
    document.querySelector("#retry-tool").onclick=()=>renderTool(id);
  }
 }
