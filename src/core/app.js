@@ -295,6 +295,7 @@ async function renderTool(id){
  const cat=getCategory(t.category);
  const sub=cat.subcategories?.find(s=>s.id===t.subcategory);
  const isDeveloper=t.category==="developer";
+ const isMaths=t.category==="maths";
  document.querySelector("#main").innerHTML=isDeveloper ? `
    <div class="tool-page developer-tool-page">
      <button class="back" id="back">${icon("arrow-left")} Back to ${cat.name}</button>
@@ -307,6 +308,10 @@ async function renderTool(id){
        </div>
      </header>
      <div id="tool-mount" class="tool-mount">Loading tool…</div>
+   </div>` : isMaths ? `
+   <div class="tool-page maths-tool-page">
+     <button class="back" id="back">${icon("arrow-left")} Back to Maths</button>
+     <div id="tool-mount" class="tool-mount maths-mount">Loading Maths tool…</div>
    </div>` : `
    <div class="tool-page">
      <button class="back" id="back">${icon("arrow-left")} Back</button>
