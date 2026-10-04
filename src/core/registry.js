@@ -120,7 +120,8 @@ export const tools = [
   {id:"secret-scanner", category:"security", subcategory:"inspection", name:"Secret Scanner", icon:"manage_search", description:"Scan pasted text for common secret-shaped patterns.", module:"../tools/security/secret-scanner.js"},
   {id:"url-safety", category:"security", subcategory:"inspection", name:"URL Safety Inspector", icon:"link", description:"Inspect obvious URL properties before opening a link.", module:"../tools/security/url-safety.js"},
   {id:"password-pattern", category:"security", subcategory:"inspection", name:"Password Pattern Helper", icon:"pattern", description:"Check a password against a local strength checklist.", module:"../tools/security/password-pattern.js"},
-  {id:"security-checklist", category:"security", subcategory:"habits", name:"Security Checklist", icon:"checklist", description:"Track a quick set of everyday security habits.", module:"../tools/security/security-checklist.js"},\n
+  {id:"security-checklist", category:"security", subcategory:"habits", name:"Security Checklist", icon:"checklist", description:"Track a quick set of everyday security habits.", module:"../tools/security/security-checklist.js"},
+
 export function getCategory(id){ return categories.find(c=>c.id===id); }
 export function getTool(id){ return tools.find(t=>t.id===id); }
 export function toolsForCategory(id){ return tools.filter(t=>t.category===id); }
