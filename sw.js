@@ -1,4 +1,4 @@
-const CACHE = "toolzy-shell-v34";
+const CACHE = "toolzy-shell-v35";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
   "./src/app.js?v=34", "./src/core/app.js", "./src/core/router.js",
