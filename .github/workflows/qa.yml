@@ -15,5 +15,5 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - name: Run Toolzy 1.37 QA
+      - name: Run Toolzy 1.38 QA
         run: node scripts/qa.mjs
