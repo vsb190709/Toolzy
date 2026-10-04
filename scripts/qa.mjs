@@ -17,7 +17,8 @@ for(const file of jsFiles){
   catch(e){fail("Syntax error: "+path.relative(root,file)+"\n"+String(e.stderr||e.stdout||e))}
 }
 
-const registry=await import(pathToFileURL(path.join(root,"src/core/registry.js")).href+"?qa="+Date.now());
+const registryUrl=pathToFileURL(path.join(root,"src/core/registry.js")).href;
+const registry=await import(registryUrl);
 const categories=registry.categories;
 const tools=registry.tools;
 const categoryIds=new Set();
@@ -38,7 +39,7 @@ for(const t of tools){
   if(!fs.existsSync(modulePath)) fail("Missing module for "+t.id+": "+t.module);
   else {
     try{
-      const mod=await import(moduleUrl.href+"?qa="+Date.now());
+      const mod=await import(moduleUrl.href);
       if(typeof mod.mount!=="function") fail("No mount() export: "+t.id);
     }catch(e){fail("Module import failed: "+t.id+" -> "+e.message)}
   }
