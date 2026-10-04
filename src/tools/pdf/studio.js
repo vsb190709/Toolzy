@@ -152,7 +152,7 @@ export async function mount(root){
           <div class="pdf-text-actions">
             <button class="secondary pdf-wide" id="pdf-add-text" disabled>${icon("add")} New text box</button>
           </div>
-          <div class="pdf-inline-tip">${icon("info")} Click Text, click the page, then type. Click outside or press Done to finish.</div>
+          <div class="pdf-inline-tip">${icon("info")} Click Text, click the page and type. Ctrl/Cmd + Enter saves the box; Esc cancels it.</div>
         </section>
 
         <section class="pdf-prop-card">
@@ -485,7 +485,8 @@ export async function mount(root){
     editor.querySelector("[data-editor-done]").onclick=()=>commitTextEditor();
     editor.querySelector("[data-editor-cancel]").onclick=()=>cancelTextEditor();
     textarea.addEventListener("keydown",e=>{
-      if(e.key==="Escape"){e.preventDefault();cancelTextEditor();}
+      if(e.key==="Escape"){e.preventDefault();cancelTextEditor();return;}
+      if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();commitTextEditor();}
     });
     setTimeout(()=>{textarea.focus();textarea.setSelectionRange(textarea.value.length,textarea.value.length);},0);
     updateDraftFromPanel();
@@ -724,11 +725,26 @@ export async function mount(root){
     refreshStage();
   }
 
+  let panelTextBefore=null;
+  editText.addEventListener("focus",()=>{
+    const a=annotations[pageIndex]?.[selectedIndex];
+    panelTextBefore=a?.type==="text"?snapshot():null;
+  });
   editText.addEventListener("input",()=>{
     const a=annotations[pageIndex]?.[selectedIndex];if(!a||a.type!=="text")return;
     a.text=editText.value;
     renderAnnotations();
-    updateControls();
+    syncSelectionPanelLight();
+  });
+  editText.addEventListener("blur",()=>{
+    if(!panelTextBefore)return;
+    if(!same(panelTextBefore.annotations,annotations)){
+      history.push(panelTextBefore);
+      if(history.length>50)history.shift();
+      redoStack=[];
+    }
+    panelTextBefore=null;
+    updateHistory();
   });
   textSize.addEventListener("change",()=>mutateSelected(a=>{if(a.type==="text")a.size=Math.max(8,Math.min(96,Number(textSize.value)||18));}));
   colorInput.addEventListener("change",()=>{
