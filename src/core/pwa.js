@@ -5,6 +5,6 @@ function appBase(){
 export function registerServiceWorker(){
   if("serviceWorker" in navigator){
     const base=appBase();
-    navigator.serviceWorker.register(base+"sw.js?build=32", {updateViaCache:"none"}).catch(()=>{});
+    navigator.serviceWorker.register(base+"sw.js?build=33", {updateViaCache:"none"}).catch(()=>{});
   }
 }
