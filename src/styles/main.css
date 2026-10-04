@@ -1651,3 +1651,32 @@ body:has(.pdf-shell-mode){background:#17151b}
  .pdf-shell-mode .pdf-stage{padding:18px 10px!important}
 }
 
+
+
+/* PDF Studio 1.37 action bar */
+.pdf-shell-mode .pdf-top-icon{
+  width:36px!important;height:36px!important;
+  display:grid!important;place-items:center!important;
+  padding:0!important;border-radius:6px!important;
+  background:#fff!important;color:#3b4048!important;
+  border:1px solid #cbd3de!important;
+}
+.pdf-shell-mode .pdf-top-icon:hover{background:#f3f6fa!important}
+.pdf-shell-mode .pdf-share{
+  min-height:36px!important;height:36px!important;
+  border-radius:6px!important;
+  padding:0 12px!important;
+  background:#fff!important;
+  border:1px solid #ccd4df!important;
+  color:#2e333b!important;
+}
+.pdf-shell-mode .pdf-share:hover{background:#f3f6fa!important}
+.pdf-shell-mode .pdf-finish{
+  min-height:36px!important;height:36px!important;
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  padding:0 12px!important;border-radius:6px!important;
+  border:1px solid #c7d3e4!important;background:#fff!important;color:#1757b6!important;
+  font-size:12px!important;font-weight:700!important;
+}
+.pdf-shell-mode .pdf-finish:hover{background:#eef4ff!important}
+
