@@ -1,11 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 /* Toolzy — Material 3 utility workspace
    Release-quality shared UI: accessible, responsive, consistent across every tool. */
-@font-face{
-  font-family:"Toolzy Material Symbols";
-  src:url("../../assets/fonts/MaterialSymbolsRounded.woff2") format("woff2");
-  font-style:normal;font-weight:400;font-display:block;
-}
 :root{
   --primary:#6750A4; --on-primary:#FFFFFF;
   --primary-container:#EADDFF; --on-primary-container:#21005D;
@@ -31,7 +26,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   outline:3px solid color-mix(in srgb,var(--primary) 30%,transparent);outline-offset:2px
 }
 .material-symbols-rounded{
-  font-family:"Toolzy Material Symbols","Material Symbols Rounded"!important;font-style:normal!important;font-weight:400!important;
+  font-family:"Material Symbols Rounded"!important;font-style:normal!important;font-weight:400!important;
   font-size:22px;line-height:1!important;letter-spacing:normal!important;text-transform:none!important;
   white-space:nowrap;direction:ltr;-webkit-font-feature-settings:"liga";font-feature-settings:"liga";
   -webkit-font-smoothing:antialiased;font-variation-settings:"FILL" 0,"wght" 450,"GRAD" 0,"opsz" 24;
