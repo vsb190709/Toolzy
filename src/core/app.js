@@ -1,9 +1,8 @@
-import { categories, tools, products, getCategory, getTool, toolsForCategory } from "./registry.js?v=23";
+import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=24";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 
 import { icon, art } from "./icons.js";
-import { mountPhotoEditor } from "../products/photo-editor.js";
 
 export function renderApp(){
   document.querySelector("#app").innerHTML=`
@@ -86,7 +85,6 @@ export function renderRoute(r){
  if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
- if(r.length===1 && products.some(p=>p.id===r[0]))return renderProduct(r[0]);
  if(r.length===1 && getCategory(r[0]))return renderCategory(r[0]);
  if(r.length===2 && getCategory(r[0]) && getTool(r[1]))return renderTool(r[1]);
  renderNotFound();
@@ -95,9 +93,10 @@ export function renderRoute(r){
 function renderHome(){
  const state=loadState();
  const recent=state.recent.map(getTool).filter(Boolean);
+ const recentInitial=recent.slice(0,3);
  document.title="Toolzy — All-in-one toolbox";
  const heroArt = art("build","Toolzy toolbox");
- const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock"};
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock",pdf:"pdf"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
@@ -111,7 +110,7 @@ function renderHome(){
      </div>
      <div class="hero-art">${heroArt}</div>
    </section>
-   ${recent.length?`<section><div class="section-title"><h2>Recently used</h2></div><div class="tool-grid">${recent.map(card).join("")}</div></section>`:""}
+   ${recent.length?`<section><div class="section-title"><h2>Recently used</h2></div><div class="tool-grid">${recentInitial.map(card).join("")}</div>${recent.length>3?`<div class="load-more-row"><button class="secondary" id="recent-more">Load more</button></div>`:""}</section>`:""}
    <section>
      <div class="section-title"><h2>Explore categories</h2><p>Everything has a place.</p></div>
      <div class="category-grid">${categories.map((c,i)=>`<button class="category-card category-${c.id}" data-nav="/${c.id}">
@@ -119,30 +118,32 @@ function renderHome(){
        <div><h3>${c.name}</h3><p>${c.description}</p><span class="category-link">Open ${icon("arrow-left")}</span></div>
      </button>`).join("")}</div>
    </section>
-   <section><div class="section-title"><h2>Toolzy products</h2><p>More than a toolbox.</p></div><div class="product-grid">${products.map(p=>`<button class="product-card product-${p.id}" data-nav="/${p.id}"><div class="product-card-icon">${icon(p.icon)}</div><div><p class="eyebrow">Toolzy product</p><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p><span class="product-link">${p.status==="planned"?"Coming next":"Open"} ${icon("arrow-left")}</span></div></button>`).join("")}</div></section>
-   <section><div class="section-title"><h2>Available now</h2><p>${tools.length} tools live</p></div><div class="tool-grid">${tools.map(card).join("")}</div></section><section class="home-bottom"><button class="secondary credits-bottom" data-nav="/credits">${icon("star")} Credits & open source</button></section>`;
+   <section><div class="section-title"><h2>Available now</h2><p>${tools.length} tools live</p></div><div class="tool-grid">${tools.slice(0,21).map(card).join("")}</div><div class="load-more-row"><button class="secondary" id="tools-more">Load more</button></div></section><section class="home-bottom"><button class="secondary credits-bottom" data-nav="/credits">${icon("star")} Credits & open source</button></section>`;
  bindNav();bindToolCards();
+ const recentMore=document.querySelector("#recent-more");
+ if(recentMore) recentMore.onclick=()=>{const section=recentMore.closest("section");section.querySelector(".tool-grid").innerHTML=recent.map(card).join("");recentMore.closest(".load-more-row").remove();bindToolCards();};
+ const toolsMore=document.querySelector("#tools-more");
+ if(toolsMore) toolsMore.onclick=()=>{const section=toolsMore.closest("section");const grid=section.querySelector(".tool-grid");const loaded=grid.querySelectorAll("[data-tool]").length;if(loaded<99){grid.insertAdjacentHTML("beforeend",tools.slice(loaded,99).map(card).join(""));}else{grid.insertAdjacentHTML("beforeend",tools.slice(loaded).map(card).join(""));toolsMore.closest(".load-more-row").remove();}bindToolCards();};
 }
 
-function renderProduct(id){
- const product=products.find(p=>p.id===id);
- if(!product)return renderNotFound();
- document.title=`${product.name} — Toolzy`;
+function renderPdfCategory(){
+ document.title="PDF Editor — Toolzy";
  document.querySelector("#main").innerHTML=`
    <section class="product-hero">
-     <div><p class="eyebrow">Toolzy · Product</p><h1>${escapeHtml(product.name)}</h1><p>${escapeHtml(product.description)}</p></div>
-     <span class="product-status">${product.status==="planned"?"Coming next":"Available"}</span>
+     <div><p class="eyebrow">Toolzy · PDF</p><h1>PDF Editor</h1><p>View, edit and organize PDF documents in a practical browser workspace.</p></div>
+     <span class="product-status">Coming next</span>
    </section>
    <section class="product-placeholder">
-     <div class="product-placeholder-icon">${icon(product.icon)}</div>
-     <h2>${product.name} is part of the Toolzy product suite.</h2>
-     <p>This workspace is planned as a dedicated full-featured application, separate from the everyday Tools collection.</p>
+     <div class="product-placeholder-icon">${icon("picture_as_pdf")}</div>
+     <h2>PDF Editor</h2>
+     <p>A dedicated PDF workspace inspired by practical PDF suites like iLovePDF and PDF24.</p>
+     <div class="hero-actions"><button class="primary" disabled>PDF Editor is coming next</button></div>
    </section>`;
- if(id==="photo-editor") mountPhotoEditor(document.querySelector("#main"));
 }
 
 function renderCategory(id){
  const c=getCategory(id), list=toolsForCategory(id);
+ if(id==="pdf")return renderPdfCategory();
  document.title=`${c.name} Tools — Toolzy`;
  if(id==="utilities")return renderUtilitiesCategory(c,list);
  if(id==="security")return renderSecurityCategory(c,list);
