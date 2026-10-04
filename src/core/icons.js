@@ -6,6 +6,7 @@ const aliases = {
   settings:"settings",
   text:"text_fields",
   calculator:"calculate",
+  calculate:"calculate",
   show_chart:"show_chart",
   currency_exchange:"currency_exchange",
   show_chart:"show_chart",
