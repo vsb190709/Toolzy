@@ -1089,3 +1089,31 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
   .pdf-mode span{display:none}
 }
 
+
+
+/* PDF Studio 1.37 layout hotfix */
+.pdf-studio-137-layout{
+  display:grid;
+  grid-template-columns:206px minmax(0,1fr) 320px;
+  grid-template-rows:1fr;
+  min-height:740px;
+  align-items:stretch;
+}
+.pdf-studio-137-layout>.pdf-pages-panel,
+.pdf-studio-137-layout>.pdf-workspace,
+.pdf-studio-137-layout>.pdf-properties{
+  min-width:0;
+  min-height:0;
+}
+@media(max-width:1180px){
+  .pdf-studio-137-layout{
+    grid-template-columns:185px minmax(0,1fr);
+  }
+}
+@media(max-width:800px){
+  .pdf-studio-137-layout{
+    grid-template-columns:1fr;
+    min-height:0;
+  }
+}
+
