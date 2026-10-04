@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="100" fill="#4f46e5"/><path d="M145 160h222v64H145zm0 96h150v64H145z" fill="white"/><circle cx="368" cy="288" r="34" fill="white"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+<title>Toolzy</title><desc>Toolzy purple ribbon T logo</desc>
+<defs><linearGradient id="g" x1="36" y1="36" x2="220" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#b58cff"/><stop offset=".55" stop-color="#6d5cff"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+<rect width="256" height="256" rx="56" fill="#171522"/>
+<path fill="url(#g)" d="M48 55c0-9 7-16 16-16h139c9 0 16 7 16 16v25c0 9-7 16-16 16h-54v76c0 7-3 13-9 17l-35 25c-10 7-24 0-24-12V96H64c-9 0-16-7-16-16V55Z"/>
+<path fill="#fff" opacity=".18" d="M110 96h39l-47 78V96h8Z"/>
+</svg>
