@@ -95,7 +95,7 @@ function renderHome(){
  const recentInitial=recent.slice(0,3);
  document.title="Toolzy — All-in-one toolbox";
  const heroArt = art("build","Toolzy toolbox");
- const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock"};
+ const categoryArt = {basic:"build",text:"text",calculators:"calculator",converters:"swap",developer:"code",utilities:"handyman",security:"lock",maths:"calculator"};
  document.querySelector("#main").innerHTML=`
    <section class="hero">
      <div class="hero-copy">
