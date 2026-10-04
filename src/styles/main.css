@@ -42,7 +42,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   padding:0 24px;background:color-mix(in srgb,var(--surface) 92%,transparent);
   backdrop-filter:blur(18px);border-bottom:1px solid var(--outline-variant)
 }
-.brand{display:flex;align-items:center;gap:10px;border:0;background:transparent;color:var(--on-surface);
+.brand{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:var(--on-surface);
   font-size:20px;font-weight:750;letter-spacing:-.02em;padding:10px 12px;border-radius:14px}
 .brand:hover{background:var(--surface-2)}
 .brand .material-symbols-rounded{color:var(--primary)}
@@ -624,3 +624,5 @@ html[data-theme=dark] .tool-form input:hover,html[data-theme=dark] .tool-form se
 /* Toolzy Photo Studio v2 */
 
 .load-more-row{display:flex;justify-content:center;margin:18px 0 4px}.load-more-row .secondary{min-width:140px}
+
+.brand-logo{width:34px;height:34px;display:block;border-radius:10px;flex:none}
