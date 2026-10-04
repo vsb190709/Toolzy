@@ -1,4 +1,5 @@
 import { icon } from "../../core/icons.js";
+import { navigate } from "../../core/router.js";
 
 const PDFJS_VERSION = "4.10.38";
 const PDFLIB_VERSION = "1.17.1";
@@ -43,6 +44,7 @@ export async function mount(root){
   <section class="pdf-studio pdf-studio-137">
     <header class="pdf-studio-bar">
       <div class="pdf-studio-brand">
+        <button class="pdf-exit" id="pdf-exit" title="Back to Toolzy">${icon("arrow-left")}</button>
         <span class="pdf-studio-icon">${icon("picture_as_pdf")}</span>
         <div class="pdf-studio-brand-copy">
           <div class="pdf-studio-brand-row"><strong>PDF Studio</strong><span class="pdf-137-badge">1.37</span></div>
@@ -180,6 +182,7 @@ export async function mount(root){
   </section>`;
 
   const $=s=>root.querySelector(s);
+  $("#pdf-exit").addEventListener("click",()=>navigate("/"));
   const fileInput=$("#pdf-file");
   const emptyInput=$("#pdf-file-empty");
   const stage=$("#pdf-stage");
