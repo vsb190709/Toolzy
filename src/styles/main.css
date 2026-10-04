@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+@font-face{
+  font-family:"Material Symbols Rounded";
+  src:url("/toolzy/assets/fonts/MaterialSymbolsRounded.woff2") format("woff2");
+  font-style:normal;
+  font-weight:100 700;
+  font-display:block;
+}
 /* Toolzy — Material 3 utility workspace
    Release-quality shared UI: accessible, responsive, consistent across every tool. */
 :root{
