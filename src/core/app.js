@@ -1,4 +1,4 @@
-import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=37";
+import { categories, tools, getCategory, getTool, toolsForCategory } from "./registry.js?v=38";
 import { route, navigate } from "./router.js";
 import { loadState, toggleFavorite, addRecent, applyTheme } from "./storage.js";
 
@@ -18,7 +18,7 @@ export function renderApp(){
           ${categories.map(c=>`<button data-nav="/${c.id}" class="nav-item">${icon(c.icon)} ${c.name}</button>`).join("")}
         </aside>
         <main id="main" tabindex="-1"></main>
-      <div class="footer-credit"><button data-nav="/credits">Credits & open source</button></div><div class="build-version" aria-label="Toolzy version">v1.37</div></div>
+      <div class="footer-credit"><button data-nav="/credits">Credits & open source</button></div><div class="build-version" aria-label="Toolzy version">v1.38</div></div>
       <nav class="bottom-nav" aria-label="Mobile navigation">
         <button data-nav="/">${icon("home")}<span>Home</span></button>
         <button data-nav="/basic">${icon("build")}<span>Basic</span></button>
@@ -86,6 +86,7 @@ export function renderRoute(r){
  if(main._toolCleanup){try{main._toolCleanup()}catch{} main._toolCleanup=null;}
  if(r.length===0)return renderHome();
  if(r.length===1 && r[0]==="credits")return renderCredits();
+ if(r[0]==="pdf")return renderPdfRoute(r.slice(1));
  if(r.length===1 && getCategory(r[0]))return renderCategory(r[0]);
  if(r.length===2 && getCategory(r[0]) && getTool(r[1]))return renderTool(r[1]);
  renderNotFound();
@@ -131,19 +132,26 @@ function renderPdfCategory(){
  document.title="PDF Studio — Toolzy";
  document.querySelector("#main").innerHTML=`
    <div class="tool-page pdf-product-page">
-     <button class="back" id="pdf-back">${icon("arrow-left")} Back to Home</button>
      <div id="pdf-studio-mount" class="tool-mount">Loading PDF Studio…</div>
    </div>`;
- document.querySelector("#pdf-back").onclick=()=>navigate("/");
- import("../tools/pdf/studio.js").then(mod=>{
-   const mountRoot=document.querySelector("#pdf-studio-mount");
-   return mod.mount(mountRoot,{id:"pdf",name:"PDF Studio"});
- }).then(()=>{
-   const mountRoot=document.querySelector("#pdf-studio-mount");
-   document.querySelector("#main")._toolCleanup=typeof mountRoot._cleanup==="function"?mountRoot._cleanup:null;
- }).catch(error=>{
+ import("../tools/pdf/pdf-suite.js").then(mod=>mod.mount(document.querySelector("#pdf-studio-mount"),{id:"pdf-home"})).catch(error=>{
    console.error("PDF Studio load error:",error);
    document.querySelector("#pdf-studio-mount").innerHTML=`<section class="tool-error">${icon("info")}<h2>PDF Studio couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p></section>`;
+ });
+}
+function renderPdfRoute(parts){
+ document.title="PDF Studio — Toolzy";
+ document.querySelector("#main").innerHTML=`<div class="tool-page pdf-product-page"><div id="pdf-studio-mount" class="tool-mount">Loading PDF Studio…</div></div>`;
+ import("../tools/pdf/pdf-suite.js").then(mod=>{
+   const mountRoot=document.querySelector("#pdf-studio-mount");
+   const id=parts.length?parts.join("-"):"pdf-home";
+   if(id==="editor") return import("../tools/pdf/studio.js").then(studio=>studio.mount(mountRoot,{id:"pdf-editor"}));
+   return mod.mount(mountRoot,{id});
+ }).catch(error=>{
+   console.error("PDF Studio route load error:",error);
+   const mountRoot=document.querySelector("#pdf-studio-mount");
+   if(mountRoot)mountRoot.innerHTML=`<section class="tool-error">${icon("info")}<h2>PDF Studio couldn't load</h2><p>${escapeHtml(error?.message||String(error))}</p><button class="secondary" id="pdf-route-home">Back to PDF Studio</button></section>`;
+   document.querySelector("#pdf-route-home")?.addEventListener("click",()=>navigate("/pdf"));
  });
 }
 function renderCategory(id){
